@@ -18,12 +18,14 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - The configured deployer is public address 0xde67a35b322e5a31e8215b5245ca4e48d7977f71; its balance was 0.04792394118394006 ETH immediately before deployment. No secret may enter chat, Git, or a project environment file.
 - Desktop/mobile headless Chrome QA passed for the deployed empty-round surface. Connected-wallet interaction still needs a real browser wallet; Browser plugin and Playwright were unavailable, so no connector behavior was claimed as retested.
 - The public repository is https://github.com/Alike001/netsettle and its `main` branch tracks `origin/main`. The public frontend is live at https://netsettle-alike001s-projects.vercel.app. Vercel built the Vite workspace successfully after `.vercelignore` excluded local research clones. Project-level Vercel SSO deployment protection was disabled because its login wall prevented unauthenticated judges from viewing the app. Hosted desktop and mobile empty-round renders passed; connected-wallet interaction still requires actual wallet evidence.
+- The first real Sepolia round is live: Round #1 is in Funding and participant A (`0xdE67…7F71`) has confirmed collateral. The Activity panel is currently empty even though those events were emitted. A direct `eth_getLogs` request to the frontend's default PublicNode Sepolia endpoint returned HTTP 403; treat event-history retrieval as a production bug to fix before final evidence capture. Contract reads and write confirmations continue to work.
 - README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Exercise the complete three-wallet Sepolia path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
-2. Replace every unchecked item in docs/demo-readiness.md with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
+1. Continue Round #1: fund B and C, submit all six obligations, reload/retry during Nox computation, validate, finalize, and withdraw with transaction evidence.
+2. Diagnose and fix the production activity-log RPC path, then retest it against Round #1 before recording final evidence.
+3. Exercise the wrong-network, rejected-action, and refund paths, then replace every unchecked item in docs/demo-readiness.md with captured evidence, record the four-minute-or-shorter video, and prepare the tagged X post.
 
 ## Standing rules this project has earned
 

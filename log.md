@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Started the real three-wallet Sepolia round and identified activity-log gap
+- **What was done/found**: The participant funded three MetaMask Sepolia accounts, created NetSettle Round #1, and participant A (`0xdE67…7F71`) completed its collateral deposit. The deployed interface correctly shows Funding and the onchain-funded state.
+- **What broke (if anything)**: The Round activity panel is empty after real RoundCreated and RoundFunded actions. A direct read-only `eth_getLogs` request against the frontend's default PublicNode Sepolia RPC endpoint returned HTTP 403, while contract reads/writes still work.
+- **Fix made**: No code change was made during diagnosis. Recorded the event-history provider issue as a production gap; the live group can continue using confirmed state and wallet/Etherscan transaction hashes, but the activity surface must be fixed and retested before final submission evidence.
+- **Why this matters / what rule it earned**: A successful write is not sufficient product proof if the evidence UI cannot retrieve its corresponding events. Test every production RPC method the frontend depends on, especially `eth_getLogs`, rather than assuming read-contract success covers historical-event access.
+
+---
+
 ### 2026-07-31 — Released NetSettle’s public Vercel frontend
 - **What was done/found**: The Vite frontend is live at `https://netsettle-alike001s-projects.vercel.app`; the stable alias returns NetSettle HTML and rendered correctly in unauthenticated desktop (1440×1000) and mobile (390×844) headless Chrome checks. The deployed frontend points to the verified public Sepolia contract and requires no environment variables or wallet secrets.
 - **What broke (if anything)**: The first Vercel project was accidentally configured as the `services` framework after it detected a local cloned Next.js reference app. The next build correctly found NetSettle but was rejected by that persisted project-level framework setting. The successful build initially displayed Vercel's SSO login page to unauthenticated visitors.
