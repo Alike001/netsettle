@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Captured non-participant action rejection
+- **What was done/found**: A fourth real Ethereum Sepolia wallet (`0xE0c3…A248`) opened finalized Round #1. The deployed interface identified it as outside the three public participants and presented “Round is view-only” with “No action available.”
+- **What broke (if anything)**: Nothing failed. No contract call was offered or sent, so this is safe evidence that an unlisted wallet cannot initiate any round action through the product.
+- **Fix made**: Marked the non-participant rejection requirement complete in the demo-readiness checklist. The only remaining functional-path evidence is refund/expiry or invalid-round recovery.
+- **Why this matters / what rule it earned**: Participant authorization should be visible before a wallet attempts a transaction. A read-only state is stronger UX than permitting a predictable revert and spending a user’s gas.
+
+---
+
 ### 2026-08-01 — Captured wrong-network recovery and full onchain activity evidence
 - **What was done/found**: A real connected MetaMask wallet was switched away from Ethereum Sepolia. NetSettle showed its explicit “Wrong network / Switch to Sepolia” state and requested no transaction. The wallet then returned to Sepolia successfully. The Round activity panel now displays all 16 verified Round #1 events, including three withdrawals, finalization, validation state changes, and encrypted submissions, each with an explorer link.
 - **What broke (if anything)**: Nothing failed in the recovery flow. This confirms the archive-capable RPC fallback repair is working in the deployed browser application, not merely through a command-line check.

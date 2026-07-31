@@ -26,7 +26,7 @@ Read this FIRST at the start of every session, before doing anything else. This 
 
 ## Next actions (in order)
 
-1. Exercise a rejected non-participant or duplicate action and an expired or invalid-round refund path, then replace every remaining unchecked item in docs/demo-readiness.md with captured evidence.
+1. Exercise an expired or invalid-round refund path, then replace every remaining unchecked item in docs/demo-readiness.md with captured evidence.
 2. Record the four-minute-or-shorter video, keep local offline copies of it and the screenshots, verify a clean public-repository clone/install, and prepare the tagged X post.
 
 ## Standing rules this project has earned
