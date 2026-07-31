@@ -6,6 +6,8 @@ import { getAddress, isAddress } from 'viem';
 import {
   COMPUTE_TIMEOUT_SECONDS,
   ETHEREUM_SEPOLIA_CHAIN_ID,
+  NETSETTLE_SEPOLIA_ADDRESS,
+  NETSETTLE_SEPOLIA_DEPLOYMENT_BLOCK,
   SEPOLIA_NOX_COMPUTE_ADDRESS,
   SEPOLIA_USDC_ADDRESS,
 } from '../../src/sepolia.js';
@@ -18,9 +20,15 @@ describe('Sepolia deployment configuration', () => {
     assert.equal(getAddress(SEPOLIA_USDC_ADDRESS), SEPOLIA_USDC_ADDRESS);
     assert.equal(getAddress(SEPOLIA_NOX_COMPUTE_ADDRESS), SEPOLIA_NOX_COMPUTE_ADDRESS);
     assert.notEqual(SEPOLIA_USDC_ADDRESS, SEPOLIA_NOX_COMPUTE_ADDRESS);
+    assert.equal(isAddress(NETSETTLE_SEPOLIA_ADDRESS, { strict: true }), true);
+    assert.equal(getAddress(NETSETTLE_SEPOLIA_ADDRESS), NETSETTLE_SEPOLIA_ADDRESS);
   });
 
   it('allows one hour for asynchronous proof recovery', () => {
     assert.equal(COMPUTE_TIMEOUT_SECONDS, 3_600n);
+  });
+
+  it('records the public first deployment block', () => {
+    assert.equal(NETSETTLE_SEPOLIA_DEPLOYMENT_BLOCK, 11_388_543n);
   });
 });

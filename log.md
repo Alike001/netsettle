@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Deployed and verified NetSettle on Ethereum Sepolia
+- **What was done/found**: The approved Ignition deployment succeeded at 0x9f10b266F90638fC058e0891901082Fe9eccD8EA in block 11388543 through transaction 0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee. A separate read-only RPC check confirmed deployed bytecode, official Circle test USDC, the 3,600-second timeout, and zero current rounds. The frontend now defaults to this public deployment and starts without a private environment file.
+- **What broke (if anything)**: Formatting initially included Ignition's untracked public address file. Headless Chrome could render the live desktop/mobile empty-round state but cannot exercise a wallet connector without an injected wallet; the Browser plugin and regular Playwright are not available.
+- **Fix made**: Formatted and retained the public deployment address/journal as evidence, ignored duplicate Ignition build-info/artifact output, added a read-only deployment verifier, public default config with test coverage, and updated the README/demo checklist. All formatting, type-check, lint, 8 contract/config tests, 10 frontend tests, and production build pass.
+- **Why this matters / what rule it earned**: A public dApp must ship its verified public deployment configuration, not make a judge invent it locally. A real connected-wallet round remains a distinct evidence gate and must be tested with actual wallet injection rather than assumed from static rendering.
+
+---
+
 ### 2026-07-31 — Passed the Sepolia deployer safety gate
 - **What was done/found**: The no-transaction deployer check successfully derived public address `0xde67a35b322e5a31e8215b5245ca4e48d7977f71` on Ethereum Sepolia and reported a `0.04792394118394006 ETH` testnet balance.
 - **What broke (if anything)**: Nothing failed, and no transaction was signed or sent. Live deployment remains gated on explicit approval because it will spend Sepolia test ETH.

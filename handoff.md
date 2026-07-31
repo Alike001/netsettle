@@ -14,16 +14,15 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - The contract slice is implemented. Five unit tests and three real Docker-backed Nox integration tests pass, including valid conservation/withdrawal, over-cap privacy/refund, and encrypted-overflow privacy/refund.
 - The Clearing Triangle frontend is implemented against real Wagmi/Nox state. Nine app tests, root lint/type-check/build, and desktop/mobile Playwright QA pass. The activity interaction showed four real local-chain events and the final browser session had zero warnings/errors.
 - The exact DoraHacks submission closing timestamp and timezone were not exposed by the accessible page. An indexed announcement says August 1, but the live DoraHacks countdown/Discord announcement must be checked before submission.
-- The Sepolia release path is prepared and verified read-only. Official Circle test USDC, NoxCompute, the one-hour timeout, Hardhat keystore config, preflight, and Ignition deployment are pinned; the module also deploys successfully on an in-process chain.
-- The corrected keystore-backed Sepolia preflight passes. The configured deployer check also passes for public address `0xde67a35b322e5a31e8215b5245ca4e48d7977f71` with `0.04792394118394006 ETH` on Sepolia, and no transaction was signed or sent.
-- Live Sepolia deployment is now blocked only on explicit user authority to spend testnet gas; no secret may enter chat, Git, or a project `.env`.
+- NetSettle is deployed and independently verified on Ethereum Sepolia: contract 0x9f10b266F90638fC058e0891901082Fe9eccD8EA, deployment transaction 0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee, block 11388543, Circle test USDC, 3,600-second timeout, and zero rounds. The frontend defaults to this public configuration with no environment file required.
+- The configured deployer is public address 0xde67a35b322e5a31e8215b5245ca4e48d7977f71; its balance was 0.04792394118394006 ETH immediately before deployment. No secret may enter chat, Git, or a project environment file.
+- Desktop/mobile headless Chrome QA passed for the deployed empty-round surface. Connected-wallet interaction still needs a real browser wallet; Browser plugin and Playwright were unavailable, so no connector behavior was claimed as retested.
 - README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Obtain explicit user approval, then run `npm run deploy:sepolia` and preserve the resulting Ignition evidence.
-2. Record the NetSettle address and deployment block in the public README/frontend config, deploy the frontend, and exercise the three-wallet path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
-3. Replace every unchecked item in `docs/demo-readiness.md` with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
+1. Deploy the frontend, then exercise the complete three-wallet Sepolia path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
+2. Replace every unchecked item in docs/demo-readiness.md with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
 
 ## Standing rules this project has earned
 
@@ -46,6 +45,7 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - Pin and commit one tested dependency set: current packages have version drift across docs, starter, plugin, and beta Handle SDK releases.
 - In this sandbox, run Hardhat with `XDG_CACHE_HOME=/home/ali/Desktop/wtf/.cache`; the normal home cache is read-only.
 - The final settlement token is official Circle test USDC at `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`; it has 6 decimals and no financial value. Do not deploy a new mock token on Sepolia.
+- The public production-default contract is NetSettle Sepolia 0x9f10b266F90638fC058e0891901082Fe9eccD8EA, deployed in block 11388543. It is linked by default in app/src/config.ts; only override it intentionally for a custom deployment.
 - The pinned Ethereum Sepolia NoxCompute address is `0x24Ef36Ec5b626D7DCD09a98F3083c2758F0F77bF`, and the live preflight must pass before any deployment.
 - The compute recovery window is 3,600 seconds. Changing it or the pinned token requires explicit review; do not override either at deployment time.
 - Store `SEPOLIA_PRIVATE_KEY` only through Hardhat's interactive encrypted keystore. Never put it in shell history, a `.env`, documentation, Git, chat, or frontend variables.

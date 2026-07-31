@@ -13,15 +13,17 @@ The current Handle SDK sends an entered amount over TLS to the trusted Nox gatew
 
 ## Deployment
 
-| Item                    | Value                                                           |
-| ----------------------- | --------------------------------------------------------------- |
-| Network                 | Ethereum Sepolia (`11155111`)                                   |
-| Settlement token        | Circle test USDC (`0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`) |
-| NoxCompute              | `0x24Ef36Ec5b626D7DCD09a98F3083c2758F0F77bF`                    |
-| NetSettle               | Pending live deployment                                         |
-| Compute recovery window | 1 hour                                                          |
+| Item                    | Value                                                                                                             |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Network                 | Ethereum Sepolia (`11155111`)                                                                                     |
+| Settlement token        | Circle test USDC (`0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`)                                                   |
+| NoxCompute              | `0x24Ef36Ec5b626D7DCD09a98F3083c2758F0F77bF`                                                                      |
+| NetSettle               | [0x9f10…D8EA](https://sepolia.etherscan.io/address/0x9f10b266F90638fC058e0891901082Fe9eccD8EA)                    |
+| Deployment transaction  | [0x5b46…10ee](https://sepolia.etherscan.io/tx/0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee) |
+| Deployment block        | `11388543`                                                                                                        |
+| Compute recovery window | 1 hour                                                                                                            |
 
-Circle test USDC has no financial value. The live NetSettle address and deployment block will be added only after an evidenced Sepolia deployment.
+Circle test USDC has no financial value. The deployment was confirmed with the contract's public token and compute-timeout getters.
 
 ## How it works
 
@@ -72,23 +74,18 @@ cd ..
 XDG_CACHE_HOME="$PWD/.cache" npm run check:sepolia
 XDG_CACHE_HOME="$PWD/.cache" npm run check:deployer
 XDG_CACHE_HOME="$PWD/.cache" npm run deploy:sepolia
+XDG_CACHE_HOME="$PWD/.cache" npm run check:deployment
 ```
 
-The first read-only preflight verifies the RPC chain ID, official USDC bytecode and metadata, and NoxCompute bytecode. The deployer check derives only the configured account's public address and Sepolia ETH balance; it signs and sends nothing. Confirm that address before running the resumable Ignition deployment, which pins the token and one-hour compute timeout in code.
+The first read-only preflight verifies the RPC chain ID, official USDC bytecode and metadata, and NoxCompute bytecode. The deployer check derives only the configured account's public address and Sepolia ETH balance; it signs and sends nothing. Confirm that address before running the resumable Ignition deployment, which pins the token and one-hour compute timeout in code. The final deployment check confirms the onchain NetSettle bytecode, token, timeout, and current round count.
 
-After deployment, copy `app/.env.example` to `app/.env.local` and set only public values:
-
-```dotenv
-VITE_NETSETTLE_ADDRESS=0x...
-VITE_DEPLOYMENT_BLOCK=...
-VITE_SEPOLIA_RPC_URL=https://...
-```
-
-Then run:
+The frontend defaults to this verified deployment and public Sepolia RPC, so it starts without a `.env` file:
 
 ```bash
 npm run dev --workspace app
 ```
+
+`app/.env.example` lists optional public overrides for a custom deployment or RPC.
 
 ## Repository map
 

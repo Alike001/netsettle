@@ -13,8 +13,8 @@ This file tracks evidence. An unchecked item must not be described as complete.
 
 ## Evidence still required
 
-- [ ] Public NetSettle Sepolia address and deployment transaction
-- [ ] Public deployment block configured in the frontend
+- [x] Public NetSettle Sepolia address and deployment transaction: 0x9f10b266F90638fC058e0891901082Fe9eccD8EA; transaction 0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee
+- [x] Public deployment block configured in the frontend: 11388543
 - [ ] Three participant wallets funded with Sepolia ETH and Circle test USDC
 - [ ] Successful six-obligation round and transaction links
 - [ ] Reload and retry during an asynchronous state

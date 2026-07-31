@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npm run typecheck && hardhat compile",
     "check:deployer": "hardhat run --network sepolia scripts/check-deployer.ts",
+    "check:deployment": "hardhat run --network sepoliaReadOnly scripts/check-deployment.ts",
     "check:sepolia": "hardhat run --network sepoliaReadOnly scripts/check-sepolia.ts",
     "compile": "hardhat compile",
     "deploy:sepolia": "hardhat ignition deploy --network sepolia --deployment-id netsettle-sepolia ignition/modules/NetSettle.ts",
