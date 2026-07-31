@@ -1,8 +1,8 @@
 import { createViemHandleClient } from '@iexec-nox/handle';
 import type { Handle, HexString } from '@iexec-nox/handle';
 import { useState } from 'react';
-import type { Address, Hash, WalletClient } from 'viem';
-import { useConnectorClient, usePublicClient, useWriteContract } from 'wagmi';
+import { createWalletClient, custom, type Address, type Hash } from 'viem';
+import { useConnection, usePublicClient, useWriteContract } from 'wagmi';
 import { appConfig } from '../config';
 import { erc20Abi, netSettleAbi } from '../contracts/abis';
 import { errorMessage } from '../lib/format';
@@ -24,8 +24,8 @@ type ActionContext = {
 export function useRoundActions(context: ActionContext) {
   const [pending, setPending] = useState<PendingState>();
   const [error, setError] = useState<string>();
+  const connection = useConnection();
   const publicClient = usePublicClient({ chainId: appConfig.chain.id });
-  const connectorClient = useConnectorClient({ chainId: appConfig.chain.id });
   const write = useWriteContract();
 
   async function run(label: string, operation: () => Promise<void>) {
@@ -52,12 +52,18 @@ export function useRoundActions(context: ActionContext) {
   }
 
   async function handleClient() {
-    const client = connectorClient.data;
-    if (!client?.account) throw new Error('Connect a wallet before using Nox.');
-    const scopedClient = client.extend(() => ({
-      getAddresses: async () => [client.account.address] as [Address],
-    }));
-    return createViemHandleClient(scopedClient as unknown as WalletClient);
+    if (!connection.address) throw new Error('Connect a wallet before using Nox.');
+    if (!window.ethereum) throw new Error('An injected wallet is required to use Nox.');
+
+    // The Handle SDK validates the runtime shape of a Viem WalletClient. Wagmi's
+    // connector client is a generic client, so build the documented wallet client
+    // directly from the injected provider and pin it to the connected account.
+    const walletClient = createWalletClient({
+      account: connection.address,
+      chain: appConfig.chain,
+      transport: custom(window.ethereum),
+    });
+    return createViemHandleClient(walletClient);
   }
 
   function requireRound() {

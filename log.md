@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Repaired the Nox browser-wallet adapter during live Round #1
+- **What was done/found**: With all three participants funded, Account C attempted its first encrypted submission and the hosted app displayed `Unsupported client. Expected a viem WalletClient instance connected to an account.` The entered values were not submitted and no transaction was sent.
+- **What broke (if anything)**: The app passed Wagmi's generic connector client, extended with a TypeScript-only cast, into `createViemHandleClient`. The Nox SDK validates the runtime client shape and rejected it because it lacks the full Viem wallet-client action surface.
+- **Fix made**: Replaced that adapter with the Nox-documented `createWalletClient({ account, chain, transport: custom(window.ethereum) })` construction, pinned to the active Wagmi address. App type-check, lint, all ten unit tests, and the Vite production build pass. The correction requires a real MetaMask/Nox submission retest after Vercel deploys it.
+- **Why this matters / what rule it earned**: A TypeScript cast cannot create runtime protocol compatibility. When bridging Wagmi to Nox, construct the exact Viem wallet-client boundary the Nox SDK documents and validate it with a real injected-wallet flow.
+
+---
+
 ### 2026-08-01 — Started the real three-wallet Sepolia round and identified activity-log gap
 - **What was done/found**: The participant funded three MetaMask Sepolia accounts, created NetSettle Round #1, and participant A (`0xdE67…7F71`) completed its collateral deposit. The deployed interface correctly shows Funding and the onchain-funded state.
 - **What broke (if anything)**: The Round activity panel is empty after real RoundCreated and RoundFunded actions. A direct read-only `eth_getLogs` request against the frontend's default PublicNode Sepolia RPC endpoint returned HTTP 403, while contract reads/writes still work.
