@@ -6,7 +6,7 @@ Read this FIRST at the start of every session, before doing anything else. This 
 
 (What's stuck, waiting on a decision, or broken right now)
 
-- The lifecycle core-icon centering repair is locally verified and needs publishing to Vercel. Browser-plugin and Playwright visual automation are unavailable in this workspace, so the final hosted visual check needs a human hard-refresh.
+- The strengthened encrypted-route labels, geometric lifecycle-core centering, and verified activity-history RPC fallback are locally verified and need publishing to Vercel. Browser-plugin and Playwright visual automation are unavailable in this workspace, so the final hosted visual check needs a human hard-refresh.
 
 - Phase 2 is complete: NetSettle and its twice-reduced three-participant scope are approved and saved in `.thoughts/specs/2026-07-31-netsettle.md`.
 - Phase 3 is complete. The user selected Direction 1, Clearing Triangle, and the binding design is saved in `design.doc.md`.
@@ -26,9 +26,8 @@ Read this FIRST at the start of every session, before doing anything else. This 
 
 ## Next actions (in order)
 
-1. Publish the lifecycle core-icon centering repair, hard-refresh the hosted app, and visually confirm the icon is centered.
-2. Diagnose and fix the production activity-log RPC path, then retest it against Round #1 before recording final evidence.
-3. Exercise the wrong-network, rejected-action, and refund paths, then replace every unchecked item in docs/demo-readiness.md with captured evidence, record the four-minute-or-shorter video, and prepare the tagged X post.
+1. Publish the UI and activity-history repair, hard-refresh the hosted app, and visually confirm centered core icon, readable encrypted labels, and 16 verified Round #1 events.
+2. Exercise the wrong-network, rejected-action, and refund paths, then replace every unchecked item in docs/demo-readiness.md with captured evidence, record the four-minute-or-shorter video, and prepare the tagged X post.
 
 ## Standing rules this project has earned
 

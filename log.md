@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Restored real activity history and refined the final clearing visualization
+- **What was done/found**: The completed Round #1 screen made `Encrypted` route labels too faint because finalized state applied 28% opacity to both the routes and their labels. The user also confirmed the central lifecycle symbol still needed to sit in the actual center of the clearing circle. Separately, Round activity displayed zero events despite real transactions.
+- **What broke (if anything)**: PublicNode rejects the historical `eth_getLogs` query from the deployment block as an archive request, so the app had an empty event list even though the contract emitted 16 logs. The center icon was part of a vertically centered icon-and-text stack, not fixed to the core’s geometric center.
+- **Fix made**: Kept dashed final routes subordinate at 40% opacity but increased `Encrypted` label weight and opacity to preserve legibility. Positioned the core icon at the exact 50%/50% center and placed status copy independently below it. Replaced the single PublicNode transport with the documented Wagmi/Viem fallback of `sepolia.drpc.org` then Tenderly’s Sepolia gateway. A read-only live query through dRPC returned 16 genuine NetSettle logs through `eth_getLogs`, and its response permits browser origins. Type-check, lint, all 10 frontend tests, and clean Vite build pass.
+- **Why this matters / what rule it earned**: Privacy routes must remain visible and clearly labelled after settlement, and an activity panel must fail over to an archive-capable RPC rather than silently showing zero history. The primary computation icon must have a fixed geometric anchor, independent of variable-length state text.
+
+---
+
 ### 2026-08-01 — Completed the real Sepolia round and corrected lifecycle icon centering
 - **What was done/found**: Round #1 completed end to end with three real MetaMask wallets: funding, all six encrypted obligation routes, Nox safety-proof validation, public net-position finalization, and all three withdrawals. The final conserved result was A pays 1 USDC and withdraws 9; B receives 2 and withdraws 12; C pays 1 and withdraws 9. The user then identified a small visual defect: the central lifecycle SVG looked optically off-center in its circular icon badge.
 - **What broke (if anything)**: The SVG inherited inline layout behaviour inside the grid-centered orbit, leaving baseline layout room that could make the glyph appear misaligned even though the wrapper itself was centered.

@@ -1,4 +1,4 @@
-import { getAddress, http, isAddress } from 'viem';
+import { fallback, getAddress, http, isAddress } from 'viem';
 import { sepolia } from 'viem/chains';
 import { createConfig } from 'wagmi';
 import { injected } from 'wagmi/connectors';
@@ -9,7 +9,10 @@ export const netSettleSepoliaDeployment = {
   transactionHash: '0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee',
 } as const;
 
-const defaultSepoliaRpcUrl = 'https://ethereum-sepolia-rpc.publicnode.com';
+const defaultSepoliaRpcUrls = [
+  'https://sepolia.drpc.org',
+  'https://sepolia.gateway.tenderly.co',
+] as const;
 
 function readAddress(value: string | undefined) {
   return value && isAddress(value) ? getAddress(value) : undefined;
@@ -36,7 +39,11 @@ export const wagmiConfig = createConfig({
   chains: [sepolia],
   connectors: [injected()],
   transports: {
-    [sepolia.id]: http(import.meta.env.VITE_SEPOLIA_RPC_URL || defaultSepoliaRpcUrl),
+    [sepolia.id]: fallback(
+      import.meta.env.VITE_SEPOLIA_RPC_URL
+        ? [http(import.meta.env.VITE_SEPOLIA_RPC_URL), ...defaultSepoliaRpcUrls.map((url) => http(url))]
+        : defaultSepoliaRpcUrls.map((url) => http(url)),
+    ),
   },
 });
 
