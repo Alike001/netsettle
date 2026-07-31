@@ -6,7 +6,7 @@ Read this FIRST at the start of every session, before doing anything else. This 
 
 (What's stuck, waiting on a decision, or broken right now)
 
-- The hosted visual and activity checks are now confirmed by a human: the clearing core is restored, the lifecycle rail is visible, encrypted labels are readable, and Round #1 shows 16 verified chain events. Browser-plugin and Playwright visual automation remain unavailable in this workspace.
+- The next-round creation path is locally verified and needs deployment before the approved real refund test. It becomes visible only after every participant has claimed a finalized round and reuses the existing `createRound` contract action. Browser-plugin and Playwright visual automation remain unavailable in this workspace.
 
 - Phase 2 is complete: NetSettle and its twice-reduced three-participant scope are approved and saved in `.thoughts/specs/2026-07-31-netsettle.md`.
 - Phase 3 is complete. The user selected Direction 1, Clearing Triangle, and the binding design is saved in `design.doc.md`.
@@ -26,7 +26,7 @@ Read this FIRST at the start of every session, before doing anything else. This 
 
 ## Next actions (in order)
 
-1. Exercise an expired or invalid-round refund path, then replace every remaining unchecked item in docs/demo-readiness.md with captured evidence.
+1. Deploy the next-round path, create a real 5-USDC short-deadline recovery round, fund it from the three participants, let it expire, and claim all refunds; then replace the remaining refund checkbox in docs/demo-readiness.md with evidence.
 2. Record the four-minute-or-shorter video, keep local offline copies of it and the screenshots, verify a clean public-repository clone/install, and prepare the tagged X post.
 
 ## Standing rules this project has earned

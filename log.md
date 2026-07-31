@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Added a real next-round creation path for recovery testing and continued use
+- **What was done/found**: The approved expiry/refund test requires a second onchain round, but the interface previously exposed creation only when the contract had zero rounds. A completed clearing product needs a way to open its next fixed group after the first group has withdrawn.
+- **What broke (if anything)**: There was no contract issue; the UI simply hid its existing creation flow after Round #1, blocking the approved recovery test from being performed through the product.
+- **Fix made**: After all three participants claim a finalized round, the action panel now offers “Create next round.” It opens the existing three-address, equal-collateral, deadline form and returns to the newly created current round after the real contract confirmation. No Solidity or Nox logic changed. Type-check, lint, all 10 frontend tests, and a clean production build pass.
+- **Why this matters / what rule it earned**: A completed round should not make a clearing product a dead end. Reuse the tested contract path for another real round rather than adding a separate test-only escape hatch.
+
+---
+
 ### 2026-08-01 — Captured non-participant action rejection
 - **What was done/found**: A fourth real Ethereum Sepolia wallet (`0xE0c3…A248`) opened finalized Round #1. The deployed interface identified it as outside the three public participants and presented “Round is view-only” with “No action available.”
 - **What broke (if anything)**: Nothing failed. No contract call was offered or sent, so this is safe evidence that an unlisted wallet cannot initiate any round action through the product.

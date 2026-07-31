@@ -22,6 +22,7 @@ type ActionPanelProps = {
   connectedParticipantIndex: number;
   decimals: number;
   error: string | undefined;
+  onCreateNextRound?: () => void;
   pending: { label: string; hash?: Hash } | undefined;
   round: RoundSnapshot;
   symbol: string;
@@ -251,13 +252,20 @@ function WaitingPanel(props: ActionPanelProps) {
   const funded = participant && hasMaskBit(props.round.fundedMask, index);
   const submitted = participant && hasMaskBit(props.round.submittedMask, index);
   const claimed = participant && hasMaskBit(props.round.claimedMask, index);
+  const canCreateNextRound =
+    participant &&
+    status === RoundStatus.Finalized &&
+    props.round.claimedMask === 7 &&
+    Boolean(props.onCreateNextRound);
   const title = !participant
     ? 'Round is view-only'
     : status === RoundStatus.Funding && funded
       ? 'Collateral funded'
       : status === RoundStatus.Submitting && submitted
         ? 'Obligations sealed'
-        : claimed
+        : canCreateNextRound
+          ? 'Round complete'
+          : claimed
           ? 'Claim complete'
           : 'Waiting for the group';
   const description = !participant
@@ -266,7 +274,9 @@ function WaitingPanel(props: ActionPanelProps) {
       ? 'Your deposit is confirmed. The submission stage opens only after all three equal deposits arrive.'
       : status === RoundStatus.Submitting
         ? 'Your encrypted vector is confirmed. Plaintext is not stored in this interface and will not reappear after reload.'
-        : claimed
+        : canCreateNextRound
+          ? 'All three participants have withdrawn. Start another fixed three-party clearing round when you are ready.'
+          : claimed
           ? 'This wallet has already claimed its one available withdrawal or refund.'
           : 'No transaction is required from this wallet at the current stage.';
 
@@ -280,6 +290,12 @@ function WaitingPanel(props: ActionPanelProps) {
           {claimed || funded || submitted ? 'Confirmed onchain' : 'No action available'}
         </strong>
       </div>
+      {canCreateNextRound && (
+        <button className="primary-button" onClick={props.onCreateNextRound} type="button">
+          <Icon name="settle" />
+          Create next round
+        </button>
+      )}
     </PanelFrame>
   );
 }
@@ -288,12 +304,14 @@ export function CreateRoundPanel({
   actions,
   decimals,
   error,
+  onCreated,
   pending,
   symbol,
 }: {
   actions: Actions;
   decimals: number;
   error: string | undefined;
+  onCreated?: () => void;
   pending: ActionPanelProps['pending'];
   symbol: string;
 }) {
@@ -334,7 +352,10 @@ export function CreateRoundPanel({
         throw new Error('The deadline duration must be greater than zero.');
       }
       const deadline = BigInt(Math.floor(Date.now() / 1_000) + Math.floor(duration * 3_600));
-      void actions.createRound(addresses, collateral, deadline).catch(() => undefined);
+      void actions
+        .createRound(addresses, collateral, deadline)
+        .then(() => onCreated?.())
+        .catch(() => undefined);
     } catch (caught) {
       setValidationError(caught instanceof Error ? caught.message : 'Check the round details.');
     }
