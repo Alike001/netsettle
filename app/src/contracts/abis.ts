@@ -1,0 +1,220 @@
+export const netSettleAbi = [
+  {
+    type: 'function',
+    name: 'roundCount',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint256' }],
+  },
+  {
+    type: 'function',
+    name: 'token',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'address' }],
+  },
+  {
+    type: 'function',
+    name: 'getRound',
+    stateMutability: 'view',
+    inputs: [{ name: 'roundId', type: 'uint256' }],
+    outputs: [
+      {
+        name: 'snapshot',
+        type: 'tuple',
+        components: [
+          { name: 'participants', type: 'address[3]' },
+          { name: 'collateralCap', type: 'uint256' },
+          { name: 'submissionDeadline', type: 'uint64' },
+          { name: 'computeDeadline', type: 'uint64' },
+          { name: 'status', type: 'uint8' },
+          { name: 'fundedMask', type: 'uint8' },
+          { name: 'submittedMask', type: 'uint8' },
+          { name: 'claimedMask', type: 'uint8' },
+          { name: 'sumValidHandles', type: 'bytes32[3]' },
+          { name: 'withinCapHandles', type: 'bytes32[3]' },
+          { name: 'netPayHandles', type: 'bytes32[3]' },
+          { name: 'netReceiveHandles', type: 'bytes32[3]' },
+          { name: 'finalPay', type: 'uint256[3]' },
+          { name: 'finalReceive', type: 'uint256[3]' },
+        ],
+      },
+    ],
+  },
+  {
+    type: 'function',
+    name: 'createRound',
+    stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'participants', type: 'address[3]' },
+      { name: 'collateralCap', type: 'uint256' },
+      { name: 'submissionDeadline', type: 'uint64' },
+    ],
+    outputs: [{ name: 'roundId', type: 'uint256' }],
+  },
+  {
+    type: 'function',
+    name: 'fundRound',
+    stateMutability: 'nonpayable',
+    inputs: [{ name: 'roundId', type: 'uint256' }],
+    outputs: [],
+  },
+  {
+    type: 'function',
+    name: 'submitObligations',
+    stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'roundId', type: 'uint256' },
+      { name: 'handles', type: 'bytes32[2]' },
+      { name: 'proofs', type: 'bytes[2]' },
+    ],
+    outputs: [],
+  },
+  {
+    type: 'function',
+    name: 'validateRound',
+    stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'roundId', type: 'uint256' },
+      { name: 'sumProofs', type: 'bytes[3]' },
+      { name: 'capProofs', type: 'bytes[3]' },
+    ],
+    outputs: [],
+  },
+  {
+    type: 'function',
+    name: 'finalizeRound',
+    stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'roundId', type: 'uint256' },
+      { name: 'payProofs', type: 'bytes[3]' },
+      { name: 'receiveProofs', type: 'bytes[3]' },
+    ],
+    outputs: [],
+  },
+  {
+    type: 'function',
+    name: 'withdraw',
+    stateMutability: 'nonpayable',
+    inputs: [{ name: 'roundId', type: 'uint256' }],
+    outputs: [],
+  },
+  {
+    type: 'function',
+    name: 'expireRound',
+    stateMutability: 'nonpayable',
+    inputs: [{ name: 'roundId', type: 'uint256' }],
+    outputs: [],
+  },
+  {
+    type: 'function',
+    name: 'claimRefund',
+    stateMutability: 'nonpayable',
+    inputs: [{ name: 'roundId', type: 'uint256' }],
+    outputs: [],
+  },
+  {
+    type: 'event',
+    name: 'RoundCreated',
+    anonymous: false,
+    inputs: [
+      { name: 'roundId', type: 'uint256', indexed: true },
+      { name: 'participants', type: 'address[3]', indexed: false },
+      { name: 'collateralCap', type: 'uint256', indexed: false },
+    ],
+  },
+  {
+    type: 'event',
+    name: 'RoundFunded',
+    anonymous: false,
+    inputs: [
+      { name: 'roundId', type: 'uint256', indexed: true },
+      { name: 'participant', type: 'address', indexed: true },
+    ],
+  },
+  {
+    type: 'event',
+    name: 'ObligationsSubmitted',
+    anonymous: false,
+    inputs: [
+      { name: 'roundId', type: 'uint256', indexed: true },
+      { name: 'participant', type: 'address', indexed: true },
+    ],
+  },
+  {
+    type: 'event',
+    name: 'RoundStatusChanged',
+    anonymous: false,
+    inputs: [
+      { name: 'roundId', type: 'uint256', indexed: true },
+      { name: 'previousStatus', type: 'uint8', indexed: false },
+      { name: 'newStatus', type: 'uint8', indexed: false },
+    ],
+  },
+  {
+    type: 'event',
+    name: 'RoundFinalized',
+    anonymous: false,
+    inputs: [
+      { name: 'roundId', type: 'uint256', indexed: true },
+      { name: 'totalPaid', type: 'uint256', indexed: false },
+    ],
+  },
+  {
+    type: 'event',
+    name: 'WithdrawalClaimed',
+    anonymous: false,
+    inputs: [
+      { name: 'roundId', type: 'uint256', indexed: true },
+      { name: 'participant', type: 'address', indexed: true },
+      { name: 'amount', type: 'uint256', indexed: false },
+    ],
+  },
+  {
+    type: 'event',
+    name: 'RefundClaimed',
+    anonymous: false,
+    inputs: [
+      { name: 'roundId', type: 'uint256', indexed: true },
+      { name: 'participant', type: 'address', indexed: true },
+      { name: 'amount', type: 'uint256', indexed: false },
+    ],
+  },
+] as const;
+
+export const erc20Abi = [
+  {
+    type: 'function',
+    name: 'symbol',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'string' }],
+  },
+  {
+    type: 'function',
+    name: 'decimals',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint8' }],
+  },
+  {
+    type: 'function',
+    name: 'allowance',
+    stateMutability: 'view',
+    inputs: [
+      { name: 'owner', type: 'address' },
+      { name: 'spender', type: 'address' },
+    ],
+    outputs: [{ name: '', type: 'uint256' }],
+  },
+  {
+    type: 'function',
+    name: 'approve',
+    stateMutability: 'nonpayable',
+    inputs: [
+      { name: 'spender', type: 'address' },
+      { name: 'value', type: 'uint256' },
+    ],
+    outputs: [{ name: '', type: 'bool' }],
+  },
+] as const;

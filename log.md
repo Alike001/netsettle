@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Built and browser-verified the Clearing Triangle frontend
+- **What was done/found**: Built the contract-backed React/Wagmi interface for round creation, exact collateral approval/funding, two-value Nox encryption, staged public proof validation/finalization, withdrawal, expiry/refund, reload-safe polling, real event history, wrong-network handling, and explicit no-deployment/read-failure states. Added nine view-model/input tests. Root formatting, type-check, lint, unit tests, and production build pass. Playwright verified a real locally deployed two-of-three Funding round at 1536×1024 and 390×844, opened the activity disclosure, and found zero current console warnings/errors.
+- **What broke (if anything)**: Context7 remained unreachable. The first rendered contract reads returned zero data because wagmi’s default client batching targeted Sepolia’s Multicall contract, which does not exist on the offline Hardhat fallback chain. The initial page also requested a missing favicon. React 19 lint rejected an impure render-time clock and effect-seeded form state. Root Hardhat gates again required the workspace cache because the sandbox home cache is read-only.
+- **Fix made**: Used installed official wagmi/Handle sources, disabled automatic multicall batching for the small read set, added the favicon, moved deadline time updates into a timer callback, derived the creator address without an effect, and reran root gates with `XDG_CACHE_HOME=/home/ali/Desktop/wtf/.cache`. Also corrected failed-round lifecycle rendering so failure stops at Compute and replaced the inaccurate “local encryption” claim with trusted Nox gateway wording.
+- **Why this matters / what rule it earned**: The shipped app never invents round data and must stay honest about the Handle SDK boundary: plaintext reaches the trusted Nox gateway over TLS for encryption before the transaction. Visual QA must use real chain state, even when that means the screenshot lifecycle differs from a static design reference.
+
+---
+
 ### 2026-07-31 — Proved NetSettle against the real local Nox stack
 - **What was done/found**: Implemented the fixed three-participant settlement state machine, encrypted obligation submission, Nox safe arithmetic, staged public decryption, deterministic conservation checks, exact withdrawals, expiry, and refunds. Added five deterministic unit tests and three Docker-backed Nox integration tests covering a valid conserved settlement, an over-collateral failure, and an encrypted `uint256` overflow. All eight tests pass.
 - **What broke (if anything)**: The first Nox run rejected participant B's encrypted inputs with `Owner mismatch`. Hardhat's wallet clients expose every local account through `getAddresses()`, while the Handle SDK selected the first returned address as the encryption owner even when a different account signed.
