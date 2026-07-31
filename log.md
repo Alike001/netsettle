@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Proved the repaired Nox browser wallet flow with Account C
+- **What was done/found**: After the Vercel deployment of the adapter repair, Account C successfully submitted its confidential `4` USDC obligation to A and `1` USDC obligation to B in the real Round #1. The UI changed to “Obligations sealed,” reported “Confirmed onchain,” and the clearing core correctly showed two submissions remaining.
+- **What broke (if anything)**: No error recurred. The prior failed attempt had not sent a transaction, so no duplicate action or financial state cleanup was needed.
+- **Fix made**: The deployed adapter now creates Nox's required Viem wallet client directly from the active MetaMask provider and address. The live result verifies that the runtime boundary works, not merely its TypeScript types.
+- **Why this matters / what rule it earned**: Browser-wallet encryption must be proven through a real Nox submission before it is claimed as working. A successful sealed-vector state is the correct evidence; plaintext remains absent after confirmation.
+
+---
+
 ### 2026-08-01 — Fixed the clean-build declaration gap in the wallet repair
 - **What was done/found**: The Nox browser-wallet repair passed locally but its first Vercel deployment failed before bundling: the clean TypeScript build did not know `Window.ethereum`, even though the local incremental build had passed.
 - **What broke (if anything)**: The project relied on a transitive browser-provider declaration that was not included under the app's explicit TypeScript `types` configuration. This made local incremental validation insufficiently representative of Vercel's clean checkout.
