@@ -5,8 +5,10 @@ artifacts/
 cache/
 typechain-types/
 .vite/
+.cache/
 .DS_Store
 *.log
+*.tsbuildinfo
 .env
 .env.*
 !.env.example

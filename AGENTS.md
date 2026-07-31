@@ -31,6 +31,7 @@ Do not let the deadline influence scope, quality, or whether something is "real"
 ## Before generating ANY ideas
 
 Do not generate hackathon ideas from general knowledge alone. First:
+
 1. Check if `/research/` folder exists in this repo with trending narratives, past winners, and chain docs. If it doesn't exist or looks empty/stale, tell me before proceeding — do not just improvise.
 2. Cross-reference: what narrative is currently trending (from research notes), what has won in similar hackathons before, and what this specific chain's tools are good at.
 3. Generate 3+ DISTINCT directions, not one output. Explicitly avoid your first/most obvious instinct — treat it as the generic answer and generate something that diverges from it.
@@ -39,6 +40,7 @@ Do not generate hackathon ideas from general knowledge alone. First:
 ## Before generating ANY frontend/UI
 
 Do not default to a generic layout. First:
+
 1. Check for `design.doc.md` in this repo. If present, follow it exactly — colors, tone, layout patterns, inspiration references.
 2. If it's missing, stop and tell me — don't invent a design direction on your own.
 3. Present 2-3 distinct visual directions, not one, when this is a new project.
@@ -58,6 +60,7 @@ Wherever the project makes a judgment, score, or verdict (a rating, a risk score
 ## Session discipline: log.md and handoff.md
 
 Every working session, follow this discipline without being asked:
+
 - **log.md**: append-only, newest entry at top. After meaningful work, add an entry: what was found/built, what broke, what fix was made, and why. Never overwrite past entries.
 - **handoff.md**: keep this current with: blockers at the top, then the next ordered actions, then standing rules this project has earned (e.g. "never run X manually, it costs real gas/spends real funds"). At the start of every new session, read handoff.md first before doing anything else — don't re-decide something a past session already settled.
 - **Commit after each meaningful session** so there's always a rollback point. Remind me if I forget.
@@ -67,6 +70,7 @@ Every working session, follow this discipline without being asked:
 Never gamble the presentation on live internet or live API calls — venue wifi, sponsor APIs, and RPC endpoints all fail at the worst moment. Before demo day, make sure we have: a prerecorded demo video as backup, screenshots of key screens, a seeded/cached dataset so the demo doesn't depend on live external calls, and a local fallback that works with no internet at all. If a judge's question can only be answered by a live call succeeding, that's a risk to flag, not accept.
 
 ## Common failure patterns to actively guard against
+
 - Solving a problem nobody actually has (not validated against a real pain point)
 - Piling on buzzwords/features instead of depth on one real use case
 - Ignoring the published judging criteria in favor of what feels impressive

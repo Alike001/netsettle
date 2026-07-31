@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Pinned and verified the Phase 4 workspace
+- **What was done/found**: Created npm workspaces for Hardhat/Nox contracts and the React/Vite app, pinned every direct dependency, generated the lockfile, added ESLint/Prettier/TypeScript gates, and validated Solidity 0.8.35 download/compilation plus both workspace type-checks and lints. The production dependency audit reports zero vulnerabilities.
+- **What broke (if anything)**: Hardhat initially tried to write its compiler list to the read-only home cache. Vitest 3.2.7 fixed its disclosed critical issue but bundled an older Vite type system that conflicted with Vite 8. The full audit still reports 18 development-only findings through ESLint/Hardhat verification dependencies.
+- **Fix made**: Redirected Hardhat's cache into the ignored workspace `.cache`, upgraded to Vitest 4.1.10 because it explicitly supports Vite 8, and rejected `npm audit fix --force`. Kept the remaining dev-only findings visible while confirming that shipped dependencies have a clean audit.
+- **Why this matters / what rule it earned**: Do not suppress incompatible library types or blindly force security updates. Pin the compatible graph, keep production dependencies clean, and treat toolchain-only audit findings as tracked risk rather than product runtime exposure.
+
+---
+
 ### 2026-07-31 — Started Phase 4 with approved build baseline
 - **What was done/found**: The user approved the 90-second demo script, technical plan, and repository root. Initialized Git, generated and saved complete desktop/mobile Clearing Triangle implementation references, and wrote stack-specific quality and implementation-inventory documents before coding.
 - **What broke (if anything)**: Context7 again failed at the network layer; the quality-profile helper script was absent; sandbox Docker access was denied; and Git initialization initially hit the sandbox's read-only `.git` rule.

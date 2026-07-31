@@ -18,15 +18,15 @@ The DoraHacks detail page is JavaScript/WAF protected in this environment. The f
 
 The organizer's published criteria are preserved below without inventing weights for the two unstarred items.
 
-| Published criterion | Displayed weight | What it requires in practice |
-|---|---:|---|
-| Project creativity | ⭐⭐⭐ | The privacy use case and integration must be original, not a recycled VIBE submission or a generic app with encryption attached. |
-| Accessible and works end to end without mock data | ⭐⭐⭐ | A judge must be able to use the real application and complete the real flow; mock chain/data paths cannot stand in for the product. |
-| Deployed on Ethereum Sepolia | ⭐⭐ | The submitted build must use **ETH Sepolia**, even though Nox also has Arbitrum Sepolia material and earlier VIBE projects used it. |
-| `feedback.md` in the public GitHub repository | ⭐⭐ | The repository must contain concrete feedback about the iExec tools. |
-| Demo video no longer than four minutes | ⭐⭐ | The public submission video has a strict four-minute maximum. |
-| Technical implementation | Unstated | Scored on how well the confidential DeFi project leverages the iExec Nox Protocol. |
-| UX | Unstated | Scored on whether the application is user-friendly and intuitive. |
+| Published criterion                               | Displayed weight | What it requires in practice                                                                                                        |
+| ------------------------------------------------- | ---------------: | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Project creativity                                |           ⭐⭐⭐ | The privacy use case and integration must be original, not a recycled VIBE submission or a generic app with encryption attached.    |
+| Accessible and works end to end without mock data |           ⭐⭐⭐ | A judge must be able to use the real application and complete the real flow; mock chain/data paths cannot stand in for the product. |
+| Deployed on Ethereum Sepolia                      |             ⭐⭐ | The submitted build must use **ETH Sepolia**, even though Nox also has Arbitrum Sepolia material and earlier VIBE projects used it. |
+| `feedback.md` in the public GitHub repository     |             ⭐⭐ | The repository must contain concrete feedback about the iExec tools.                                                                |
+| Demo video no longer than four minutes            |             ⭐⭐ | The public submission video has a strict four-minute maximum.                                                                       |
+| Technical implementation                          |         Unstated | Scored on how well the confidential DeFi project leverages the iExec Nox Protocol.                                                  |
+| UX                                                |         Unstated | Scored on whether the application is user-friendly and intuitive.                                                                   |
 
 **Verified design decision:** **Yes, UX is explicitly a scored dimension.** Phase 3 should therefore do more than make the interface merely functional, while still preserving the AGENTS.md rule that protocol depth takes priority over decorative polish.
 
@@ -73,15 +73,15 @@ These are examples, not mandatory choices.
 
 Every later feature should map to at least one row below. A feature that maps to none is lower priority.
 
-| Dimension | Evidence a judge should be able to see |
-|---|---|
-| Creativity | A specific privacy failure in a real public protocol and a Nox-native mechanism that resolves it. |
-| End-to-end, no mocks | Real wallet, real Sepolia transactions, real Nox handles/results, and the real target protocol or a real deployed integration boundary. |
-| ETH Sepolia | Verified contract addresses, transaction links, and a reproducible deployment path. |
-| Nox implementation | Encrypted inputs, confidential computation, correct ACL/persistence, and a clear explanation of what remains public. |
-| Deployability | Failure recovery, replay protection, authorization, monitoring, tests, and usable setup documentation. |
-| UX | Plain-language privacy boundaries, visible async progress/retry states, safe errors, and a short path through the core task. |
-| Submission compliance | Public repo, README, documentation, `feedback.md`, video ≤4 minutes, and tagged X post. |
+| Dimension             | Evidence a judge should be able to see                                                                                                  |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Creativity            | A specific privacy failure in a real public protocol and a Nox-native mechanism that resolves it.                                       |
+| End-to-end, no mocks  | Real wallet, real Sepolia transactions, real Nox handles/results, and the real target protocol or a real deployed integration boundary. |
+| ETH Sepolia           | Verified contract addresses, transaction links, and a reproducible deployment path.                                                     |
+| Nox implementation    | Encrypted inputs, confidential computation, correct ACL/persistence, and a clear explanation of what remains public.                    |
+| Deployability         | Failure recovery, replay protection, authorization, monitoring, tests, and usable setup documentation.                                  |
+| UX                    | Plain-language privacy boundaries, visible async progress/retry states, safe errors, and a short path through the core task.            |
+| Submission compliance | Public repo, README, documentation, `feedback.md`, video ≤4 minutes, and tagged X post.                                                 |
 
 Primary sources: [WTF Hackathon on DoraHacks](https://dorahacks.io/hackathon/wtf-hackathon/detail), [iExec Nox developer resources](https://docs.iex.ec/nox-protocol/getting-started/welcome), [iExec Discord invitation](https://discord.gg/RXYHBJceMe).
 
@@ -138,10 +138,10 @@ Official source read: [Nox Solidity SDK](repos/official/nox-protocol-contracts/c
 
 The current official documentation contains configurations for:
 
-| Network | Chain ID | Documented `NoxCompute` address |
-|---|---:|---|
+| Network          | Chain ID | Documented `NoxCompute` address              |
+| ---------------- | -------: | -------------------------------------------- |
 | Ethereum Sepolia | 11155111 | `0x24ef36ec5b626d7dcd09a98f3083c2758f0f77bf` |
-| Arbitrum Sepolia | 421614 | `0xd464b198f06756a1d00be223634b85e0a731c229` |
+| Arbitrum Sepolia |   421614 | `0xd464b198f06756a1d00be223634b85e0a731c229` |
 
 **Hackathon override:** the WTF submission must be deployed on **Ethereum Sepolia**. Prior VIBE winners and some current repository examples use Arbitrum Sepolia; those addresses and deployment instructions must not be copied into this build.
 
@@ -149,14 +149,14 @@ The current official documentation contains configurations for:
 
 Versions observed in the fetched repositories on 2026-07-30:
 
-| Component | Observed version / constraint | Practical note |
-|---|---|---|
-| `@iexec-nox/nox-protocol-contracts` | `0.2.4` | Contracts require Solidity `^0.8.35`; this caused the participant's Remix 0.8.34 parser error. |
-| `@iexec-nox/handle` | `0.1.0-beta.13` | Beta SDK surface; pin the exact tested version. |
-| Nox Hardhat plugin | repository package `0.2.0` | Current repo depends on an earlier Handle beta than the docs package. |
-| Nox Hardhat starter | `1.0.0` | Uses contracts `^0.2.4`, confidential contracts `^0.2.0`, and a plugin beta dependency; verify the resolved lockfile rather than assuming all examples align. |
-| Hardhat generation | `3.x` in current contract/starter setup | Reuse the official starter and plugin rather than assembling services from memory. |
-| OpenZeppelin | `5.6.1` in current protocol-contract package | Pin and test with the package's actual compiler baseline. |
+| Component                           | Observed version / constraint                | Practical note                                                                                                                                                |
+| ----------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@iexec-nox/nox-protocol-contracts` | `0.2.4`                                      | Contracts require Solidity `^0.8.35`; this caused the participant's Remix 0.8.34 parser error.                                                                |
+| `@iexec-nox/handle`                 | `0.1.0-beta.13`                              | Beta SDK surface; pin the exact tested version.                                                                                                               |
+| Nox Hardhat plugin                  | repository package `0.2.0`                   | Current repo depends on an earlier Handle beta than the docs package.                                                                                         |
+| Nox Hardhat starter                 | `1.0.0`                                      | Uses contracts `^0.2.4`, confidential contracts `^0.2.0`, and a plugin beta dependency; verify the resolved lockfile rather than assuming all examples align. |
+| Hardhat generation                  | `3.x` in current contract/starter setup      | Reuse the official starter and plugin rather than assembling services from memory.                                                                            |
+| OpenZeppelin                        | `5.6.1` in current protocol-contract package | Pin and test with the package's actual compiler baseline.                                                                                                     |
 
 **Inference:** the documentation, starter, plugin, and SDK are moving at different beta/release cadences. The safest implementation policy is to copy the official starter's current structure, pin a single known-good dependency set, commit the lockfile, record exact versions in `feedback.md`, and run a clean-install test.
 
@@ -212,16 +212,16 @@ A GitHub repository search snapshot on 2026-07-30 found **105 public repositorie
 
 Approximate overlaps among the first 100 inspected results:
 
-| Lane | Repositories with matching names/descriptions |
-|---|---:|
-| Payments / escrow | 21 |
-| Safe / treasury | 20 |
-| Swaps / trading | 15 |
-| Payroll / streaming | 13 |
-| Vault / yield / lending | 6 |
-| Decisions / governance | 3 |
-| Prediction markets | 2 |
-| Explicit RWA label | 1 |
+| Lane                    | Repositories with matching names/descriptions |
+| ----------------------- | --------------------------------------------: |
+| Payments / escrow       |                                            21 |
+| Safe / treasury         |                                            20 |
+| Swaps / trading         |                                            15 |
+| Payroll / streaming     |                                            13 |
+| Vault / yield / lending |                                             6 |
+| Decisions / governance  |                                             3 |
+| Prediction markets      |                                             2 |
+| Explicit RWA label      |                                             1 |
 
 Examples included confidential Aave credit/liquidation, Safe treasury movement, swap shielding, confidential limit orders, Curve batch auctions, quadratic funding, payroll, Aave vaults, Uniswap routing, and private procurement.
 
@@ -292,13 +292,13 @@ The closest verified precedent is the prior iExec **VIBE Coding Hackathon**. Its
 
 ### Winner pattern and split
 
-| Pattern | Observation |
-|---|---|
-| Consumer/protocol applications | 3 of 3 winners |
-| Pure infrastructure/tooling | 0 of 3 winners |
-| Confidential financial state | 3 of 3 winners |
-| Selective disclosure | 3 of 3 winners |
-| Live testnet evidence | Present across the winning submissions |
+| Pattern                        | Observation                            |
+| ------------------------------ | -------------------------------------- |
+| Consumer/protocol applications | 3 of 3 winners                         |
+| Pure infrastructure/tooling    | 0 of 3 winners                         |
+| Confidential financial state   | 3 of 3 winners                         |
+| Selective disclosure           | 3 of 3 winners                         |
+| Live testnet evidence          | Present across the winning submissions |
 
 Diam includes agent/MCP tooling, but its winning product is still an OTC application. This means infrastructure is underrepresented among prior winners, not that judges reject it.
 

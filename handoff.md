@@ -3,22 +3,27 @@
 Read this FIRST at the start of every session, before doing anything else. This is how a past session tells the next one (or tells the human) what's already been decided — don't re-decide it.
 
 ## Current blockers
+
 (What's stuck, waiting on a decision, or broken right now)
+
 - Phase 2 is complete: NetSettle and its twice-reduced three-participant scope are approved and saved in `.thoughts/specs/2026-07-31-netsettle.md`.
 - Phase 3 is complete. The user selected Direction 1, Clearing Triangle, and the binding design is saved in `design.doc.md`.
 - Phase 4 is approved. The demo script and technical plan are accepted, and `/home/ali/Desktop/wtf` is now the intended Git root.
 - The approved desktop/mobile implementation references are saved under `assets/design/`; build against them and verify with browser screenshots plus `view_image`.
+- The pinned npm workspace is installed and type-checks. Production `npm audit --omit=dev` is clean; 18 development-only audit findings remain in ESLint/Hardhat verification dependency paths and must not be hidden with `--force`.
 - The exact DoraHacks submission closing timestamp and timezone were not exposed by the accessible page. An indexed announcement says August 1, but the live DoraHacks countdown/Discord announcement must be checked before submission.
 - Docker exists, but sandbox access to `/var/run/docker.sock` is blocked until an explicit escalated Nox test command is approved.
 
 ## Next actions (in order)
-1. Commit the research/spec/design/quality baseline.
-2. Initialize the npm workspace from the current Nox Hardhat 3/Viem baseline and pin the tested dependency graph.
-3. Build and test the on-chain state machine, including invalid input, authorization, overflow/underflow, public-decryption proof, expiry/refund, local Nox integration, and real Sepolia evidence.
-4. Build the approved Clearing Triangle frontend only against real contract/Nox state and test reload, retry, wrong-network, rejected wallet actions, responsive layout, and accessibility.
+
+1. Commit the verified npm workspace and lockfile.
+2. Build and test the on-chain state machine, including invalid input, authorization, overflow/underflow, public-decryption proof, expiry/refund, local Nox integration, and real Sepolia evidence.
+3. Build the approved Clearing Triangle frontend only against real contract/Nox state and test reload, retry, wrong-network, rejected wallet actions, responsive layout, and accessibility.
 
 ## Standing rules this project has earned
+
 (Things learned the hard way — don't repeat the mistake)
+
 - Never provide a private key or seed phrase in a form, chat, website, or project file; wallet verification only requires the public address.
 - Use the same Ethereum Sepolia wallet for deployment and the Nox widget so the on-chain activity can be verified.
 - The current Nox package requires Solidity 0.8.35 or newer; Remix 0.8.34 cannot compile its `^0.8.35` imports.
@@ -34,6 +39,7 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - Operation results are transient by default; persist contract access with `Nox.allowThis` and grant viewer access deliberately.
 - Prefer Nox safe arithmetic variants for financial logic and test overflow, underflow, and division boundaries.
 - Pin and commit one tested dependency set: current packages have version drift across docs, starter, plugin, and beta Handle SDK releases.
+- In this sandbox, run Hardhat with `XDG_CACHE_HOME=/home/ali/Desktop/wtf/.cache`; the normal home cache is read-only.
 - Preserve the target protocol's authorization, replay, slippage/solvency, cancellation, and recovery invariants; privacy does not replace them.
 - Use audited/deployed tagged releases of target protocols, not mutable `main` branches.
 - Current collision checks found `danielamodu/Nox-safe`, a confidential Safe transaction guard, and `Xconmax245/Skia`, an Aave confidential-credit/liquidation project. Do not propose simple Safe guards or Aave credit/liquidation products.

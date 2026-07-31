@@ -85,6 +85,7 @@ This hackathon/protocol is: [PROTOCOL/HACKATHON NAME]
 Here are the hackathon's raw resources:
 [paste links, docs, GitHub URLs, starter templates here]
 ```
+
 ---
 
 ## Standalone prompt A — new resource mid-project
