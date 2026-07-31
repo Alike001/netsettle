@@ -15,12 +15,12 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - The Clearing Triangle frontend is implemented against real Wagmi/Nox state. Nine app tests, root lint/type-check/build, and desktop/mobile Playwright QA pass. The activity interaction showed four real local-chain events and the final browser session had zero warnings/errors.
 - The exact DoraHacks submission closing timestamp and timezone were not exposed by the accessible page. An indexed announcement says August 1, but the live DoraHacks countdown/Discord announcement must be checked before submission.
 - The Sepolia release path is prepared and verified read-only. Official Circle test USDC, NoxCompute, the one-hour timeout, Hardhat keystore config, preflight, and Ignition deployment are pinned; the module also deploys successfully on an in-process chain.
-- Live Sepolia deployment and three-wallet evidence remain pending. They require a funded testnet deployment wallet configured locally in Hardhat's encrypted keystore and explicit authority to spend its Sepolia ETH; no secret may enter chat, Git, or a project `.env`.
+- The user successfully stored `SEPOLIA_RPC_URL` and `SEPOLIA_PRIVATE_KEY` through Hardhat's encrypted production keystore. Live deployment still requires a passing preflight, a funded Sepolia wallet, and explicit authority to spend its Sepolia ETH; no secret may enter chat, Git, or a project `.env`.
 - README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Configure `SEPOLIA_RPC_URL` and a funded `SEPOLIA_PRIVATE_KEY` interactively in Hardhat's encrypted keystore, then obtain explicit approval before running `npm run deploy:sepolia`.
+1. Run the read-only keystore-backed Sepolia preflight, confirm the configured wallet has Sepolia ETH, then obtain explicit approval before running `npm run deploy:sepolia`.
 2. Record the NetSettle address and deployment block in the public README/frontend config, deploy the frontend, and exercise the three-wallet path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
 3. Replace every unchecked item in `docs/demo-readiness.md` with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
 

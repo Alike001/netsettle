@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Confirmed secure Sepolia keystore setup
+- **What was done/found**: The user completed Hardhat's interactive production-keystore flow for both `SEPOLIA_RPC_URL` and `SEPOLIA_PRIVATE_KEY`; Hardhat reported that both named keys were stored.
+- **What broke (if anything)**: Nothing failed. The wallet's Sepolia ETH balance and the stored RPC still need to be checked before deployment.
+- **Fix made**: No secret was requested, displayed, or written to the project. The next operation remains the read-only Sepolia preflight.
+- **Why this matters / what rule it earned**: A successful `Key "…" set in the production keystore` message confirms encrypted storage, not deployment readiness or authority to spend gas; preflight and explicit deployment approval remain separate gates.
+
+---
+
 ### 2026-07-31 — Made the Sepolia release path fail-closed and reproducible
 - **What was done/found**: Pinned official Circle test USDC and the package-selected NoxCompute address for Ethereum Sepolia, chose a one-hour asynchronous recovery window, added secure Hardhat keystore network configuration, a resumable Ignition module, a read-only dependency preflight, two configuration tests, the public README, evidence-based `feedback.md`, and a demo-readiness checklist. The live preflight confirmed chain `11155111`, USDC bytecode/metadata, and NoxCompute bytecode. The deployment module succeeded on an in-process chain. All formatting, lint, type-check, 7 contract/config tests, 9 frontend tests, and production builds pass.
 - **What broke (if anything)**: Context7 remained unreachable, and the first live preflight was blocked by sandbox DNS. No funded Sepolia deployer is configured, so the real deployment and three-wallet evidence remain intentionally incomplete.
