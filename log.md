@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Identified the GitHub publishing blocker
+- **What was done/found**: Confirmed the local Vercel hosting commit is on a clean `main` branch and GitHub CLI 2.96.0 is installed. The saved active GitHub account is `Alike001`, but its token is invalid; the repository has no remote yet.
+- **What broke (if anything)**: `gh auth status` fails before repository creation because the saved GitHub credential is no longer valid.
+- **Fix made**: No credential was inspected, displayed, replaced, or bypassed. Recorded the required interactive `gh auth login -h github.com` recovery step, after which the approved public repository creation/push and Vercel import can proceed.
+- **Why this matters / what rule it earned**: GitHub authentication is personal account authority. A failed token cannot be worked around by asking for a token in chat; the user must authenticate locally through GitHub's normal browser/device flow.
+
+---
+
 ### 2026-07-31 — Prepared the frontend for reproducible Vercel hosting
 - **What was done/found**: Added root-level `vercel.json` so Vercel installs the pinned workspace lockfile, builds only the `app` workspace, and publishes `app/dist`. Documented the import configuration and explicit secret boundary in the README. The Git repository currently has no remote, so Vercel cannot import it until a public GitHub repository is selected and pushed.
 - **What broke (if anything)**: Context7's documentation service was unavailable during the Vercel configuration check. No deployment was attempted because the user has not yet provided a GitHub repository connection or Vercel account session.

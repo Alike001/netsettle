@@ -17,14 +17,15 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - NetSettle is deployed and independently verified on Ethereum Sepolia: contract 0x9f10b266F90638fC058e0891901082Fe9eccD8EA, deployment transaction 0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee, block 11388543, Circle test USDC, 3,600-second timeout, and zero rounds. The frontend defaults to this public configuration with no environment file required.
 - The configured deployer is public address 0xde67a35b322e5a31e8215b5245ca4e48d7977f71; its balance was 0.04792394118394006 ETH immediately before deployment. No secret may enter chat, Git, or a project environment file.
 - Desktop/mobile headless Chrome QA passed for the deployed empty-round surface. Connected-wallet interaction still needs a real browser wallet; Browser plugin and Playwright were unavailable, so no connector behavior was claimed as retested.
-- Vercel release configuration is committed locally. The repository currently has no GitHub remote, so the user must create or select a public GitHub repository before it can be imported into Vercel. The Vercel project must use the repository root (not `app`) so it installs from the pinned root lockfile and uses `vercel.json` to build/publish the app workspace.
+- Vercel release configuration is committed locally. The repository currently has no GitHub remote. GitHub CLI is installed but its active `Alike001` token is invalid; the user must complete `gh auth login -h github.com` before the public `netsettle` repository can be created and pushed. The Vercel project must use the repository root (not `app`) so it installs from the pinned root lockfile and uses `vercel.json` to build/publish the app workspace.
 - README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Create/select a public GitHub repository, add it as this repository's remote, push the committed main branch, then import it into Vercel with the repository root as Root Directory. Do not add wallet secrets to Vercel.
-2. Exercise the complete three-wallet Sepolia path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
-3. Replace every unchecked item in docs/demo-readiness.md with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
+1. Run `gh auth login -h github.com` in a local terminal and complete browser authentication. Do not share the resulting token with Codex.
+2. Create the public `netsettle` GitHub repository, add it as this repository's remote, push the committed main branch, then import it into Vercel with the repository root as Root Directory. Do not add wallet secrets to Vercel.
+3. Exercise the complete three-wallet Sepolia path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
+4. Replace every unchecked item in docs/demo-readiness.md with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
 
 ## Standing rules this project has earned
 
