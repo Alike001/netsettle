@@ -555,12 +555,20 @@ input:focus-visible {
   z-index: 1;
   display: inline-grid;
   place-items: center;
+  line-height: 0;
+  overflow: hidden;
   width: 34px;
   height: 34px;
   margin-bottom: 8px;
   border-radius: 50%;
   color: #fff;
   background: var(--cobalt);
+}
+
+.core-orbit svg {
+  display: block;
+  width: 18px;
+  height: 18px;
 }
 
 .clearing-core > strong,

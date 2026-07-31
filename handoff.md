@@ -6,7 +6,7 @@ Read this FIRST at the start of every session, before doing anything else. This 
 
 (What's stuck, waiting on a decision, or broken right now)
 
-- Round #1 has all three encrypted submissions and is now computing in Nox. Account A's first safety-proof attempt failed before MetaMask opened with `Cannot read properties of undefined (reading 'apiService')`; no validation transaction was sent. The root cause and a locally verified frontend fix are ready to publish: retain the Handle client method's `this` context when requesting public-decryption proofs.
+- The lifecycle core-icon centering repair is locally verified and needs publishing to Vercel. Browser-plugin and Playwright visual automation are unavailable in this workspace, so the final hosted visual check needs a human hard-refresh.
 
 - Phase 2 is complete: NetSettle and its twice-reduced three-participant scope are approved and saved in `.thoughts/specs/2026-07-31-netsettle.md`.
 - Phase 3 is complete. The user selected Direction 1, Clearing Triangle, and the binding design is saved in `design.doc.md`.
@@ -21,14 +21,14 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - Desktop/mobile headless Chrome QA passed for the deployed empty-round surface. Connected-wallet interaction still needs a real browser wallet; Browser plugin and Playwright were unavailable, so no connector behavior was claimed as retested.
 - The public repository is https://github.com/Alike001/netsettle and its `main` branch tracks `origin/main`. The public frontend is live at https://netsettle-alike001s-projects.vercel.app. Vercel built the Vite workspace successfully after `.vercelignore` excluded local research clones. Project-level Vercel SSO deployment protection was disabled because its login wall prevented unauthenticated judges from viewing the app. Hosted desktop and mobile empty-round renders passed; connected-wallet interaction still requires actual wallet evidence.
 - The first real Sepolia round is live: Round #1 is in Funding and participant A (`0xdE67…7F71`) has confirmed collateral. The Activity panel is currently empty even though those events were emitted. A direct `eth_getLogs` request to the frontend's default PublicNode Sepolia endpoint returned HTTP 403; treat event-history retrieval as a production bug to fix before final evidence capture. Contract reads and write confirmations continue to work.
-- Round #1 has all three encrypted obligation vectors confirmed: C submitted `4` to A / `1` to B, B submitted `2` to A / `3` to C, and A submitted `6` to B / `1` to C. The next on-chain stage is safety validation, then finalization and withdrawals.
+- Round #1 completed its real Sepolia lifecycle end-to-end: all three funded, submitted encrypted vectors, validated Nox safety proofs, finalized conserved positions, and withdrew. Final public positions were A pays 1 USDC (withdraws 9), B receives 2 (withdraws 12), and C pays 1 (withdraws 9). The first validation client-context error occurred before signing, was repaired, and the retry succeeded.
 - README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Publish the bound-public-decryption repair, hard-refresh the hosted app, then have Account A validate. Continue only after confirmation to finalization and withdrawals with transaction evidence.
-3. Diagnose and fix the production activity-log RPC path, then retest it against Round #1 before recording final evidence.
-4. Exercise the wrong-network, rejected-action, and refund paths, then replace every unchecked item in docs/demo-readiness.md with captured evidence, record the four-minute-or-shorter video, and prepare the tagged X post.
+1. Publish the lifecycle core-icon centering repair, hard-refresh the hosted app, and visually confirm the icon is centered.
+2. Diagnose and fix the production activity-log RPC path, then retest it against Round #1 before recording final evidence.
+3. Exercise the wrong-network, rejected-action, and refund paths, then replace every unchecked item in docs/demo-readiness.md with captured evidence, record the four-minute-or-shorter video, and prepare the tagged X post.
 
 ## Standing rules this project has earned
 

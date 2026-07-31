@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Completed the real Sepolia round and corrected lifecycle icon centering
+- **What was done/found**: Round #1 completed end to end with three real MetaMask wallets: funding, all six encrypted obligation routes, Nox safety-proof validation, public net-position finalization, and all three withdrawals. The final conserved result was A pays 1 USDC and withdraws 9; B receives 2 and withdraws 12; C pays 1 and withdraws 9. The user then identified a small visual defect: the central lifecycle SVG looked optically off-center in its circular icon badge.
+- **What broke (if anything)**: The SVG inherited inline layout behaviour inside the grid-centered orbit, leaving baseline layout room that could make the glyph appear misaligned even though the wrapper itself was centered.
+- **Fix made**: Made the lifecycle SVG a block-level 18px element and removed line-height/baseline influence from its 34px grid-centered circular container. App lint, all 10 frontend tests, and a clean Vite production build pass. Browser-plugin and Playwright visual automation are unavailable here; a hosted hard-refresh remains the visual confirmation.
+- **Why this matters / what rule it earned**: The completed real round proves the product’s full confidential settlement path, while UI details in the primary state visualization must be corrected visibly rather than dismissed as cosmetic—UX is a scored hackathon dimension.
+
+---
+
 ### 2026-08-01 — Fixed detached Nox public-decryption method during live validation
 - **What was done/found**: After every participant sealed a real encrypted obligation vector in Sepolia Round #1, Account A selected “Verify safety proofs.” The app stopped before MetaMask with `Cannot read properties of undefined (reading 'apiService')`; no validation transaction was signed or sent.
 - **What broke (if anything)**: The frontend passed `client.publicDecrypt` as a bare callback to a helper. JavaScript therefore removed the Handle client's `this` context, and the SDK could not access its internally initialized API service.
