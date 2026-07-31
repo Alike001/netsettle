@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Diagnosed the Sepolia preflight HHE8 failure
+- **What was done/found**: Confirmed against the installed Hardhat 3.12.0 error descriptors that HHE8 means `Invalid URL`. `hardhat keystore list` also confirmed that both expected production-keystore key names exist.
+- **What broke (if anything)**: The value stored under `SEPOLIA_RPC_URL` is not a URL Hardhat accepts, so the read-only preflight stops during network configuration before making an RPC request.
+- **Fix made**: Prescribed overwriting only `SEPOLIA_RPC_URL` with a complete `https://` endpoint and no quotes, key-name prefix, or surrounding spaces. The private key remains untouched.
+- **Why this matters / what rule it earned**: Diagnose Hardhat by its exact installed error code, not npm's trailing wrapper. HHE8 is a network-URL validation failure and must be resolved before any gas-spending command is attempted.
+
+---
+
 ### 2026-07-31 — Confirmed secure Sepolia keystore setup
 - **What was done/found**: The user completed Hardhat's interactive production-keystore flow for both `SEPOLIA_RPC_URL` and `SEPOLIA_PRIVATE_KEY`; Hardhat reported that both named keys were stored.
 - **What broke (if anything)**: Nothing failed. The wallet's Sepolia ETH balance and the stored RPC still need to be checked before deployment.
