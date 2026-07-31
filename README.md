@@ -87,6 +87,17 @@ npm run dev --workspace app
 
 `app/.env.example` lists optional public overrides for a custom deployment or RPC.
 
+## Host the frontend on Vercel
+
+Vercel is configured at the repository root in `vercel.json`. Import the public
+GitHub repository into Vercel, leave **Root Directory** at the repository root,
+and accept the detected settings. Vercel will run `npm ci`, build the `app`
+workspace, and publish `app/dist`.
+
+The hosted frontend contains only the public NetSettle Sepolia address and a
+public RPC fallback. Do not configure `SEPOLIA_PRIVATE_KEY`, a seed phrase, or
+any wallet secret in Vercel.
+
 ## Repository map
 
 - `contracts/contracts/NetSettle.sol` — confidential clearing and settlement state machine

@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Prepared the frontend for reproducible Vercel hosting
+- **What was done/found**: Added root-level `vercel.json` so Vercel installs the pinned workspace lockfile, builds only the `app` workspace, and publishes `app/dist`. Documented the import configuration and explicit secret boundary in the README. The Git repository currently has no remote, so Vercel cannot import it until a public GitHub repository is selected and pushed.
+- **What broke (if anything)**: Context7's documentation service was unavailable during the Vercel configuration check. No deployment was attempted because the user has not yet provided a GitHub repository connection or Vercel account session.
+- **Fix made**: Used current official Vercel monorepo and Vite deployment documentation as the fallback, and intentionally configured the project from the repository root so Vercel honors the committed root `package-lock.json` rather than performing an unpinned subdirectory installation.
+- **Why this matters / what rule it earned**: A hosted frontend needs no private deployment credentials; NetSettle's public Sepolia address is safe to ship, but `SEPOLIA_PRIVATE_KEY` and wallet recovery material must never enter Vercel variables or build logs.
+
+---
+
 ### 2026-07-31 — Deployed and verified NetSettle on Ethereum Sepolia
 - **What was done/found**: The approved Ignition deployment succeeded at 0x9f10b266F90638fC058e0891901082Fe9eccD8EA in block 11388543 through transaction 0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee. A separate read-only RPC check confirmed deployed bytecode, official Circle test USDC, the 3,600-second timeout, and zero current rounds. The frontend now defaults to this public deployment and starts without a private environment file.
 - **What broke (if anything)**: Formatting initially included Ignition's untracked public address file. Headless Chrome could render the live desktop/mobile empty-round state but cannot exercise a wallet connector without an injected wallet; the Browser plugin and regular Playwright are not available.
