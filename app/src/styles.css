@@ -521,15 +521,18 @@ input:focus-visible {
   z-index: 5;
   top: 48%;
   left: 50%;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 174px;
   height: 174px;
   border: 1px solid color-mix(in srgb, var(--cobalt) 30%, var(--stone));
   border-radius: 50%;
   color: var(--cobalt);
   background:
-    radial-gradient(circle at 50% 50%, #fffefb 0 40%, transparent 41%), var(--surface-selected);
+    radial-gradient(circle at 50% 42%, #fffefb 0 40%, transparent 41%), var(--surface-selected);
   box-shadow: 0 0 0 10px rgb(49 85 231 / 5%);
+  flex-direction: column;
   text-align: center;
   transform: translate(-50%, -50%);
 }
@@ -550,9 +553,6 @@ input:focus-visible {
 }
 
 .core-orbit {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   z-index: 1;
   display: inline-grid;
   place-items: center;
@@ -560,10 +560,10 @@ input:focus-visible {
   overflow: hidden;
   width: 34px;
   height: 34px;
+  margin-bottom: 8px;
   border-radius: 50%;
   color: #fff;
   background: var(--cobalt);
-  transform: translate(-50%, -50%);
 }
 
 .core-orbit svg {
@@ -578,24 +578,17 @@ input:focus-visible {
 }
 
 .clearing-core > strong {
-  position: absolute;
-  top: calc(50% + 27px);
-  left: 50%;
   max-width: 125px;
   font-size: 0.87rem;
   line-height: 1.15;
-  transform: translateX(-50%);
 }
 
 .clearing-core > span:last-child {
-  position: absolute;
-  top: calc(50% + 53px);
-  left: 50%;
   max-width: 126px;
+  margin-top: 5px;
   color: var(--slate);
   font-size: 0.66rem;
   line-height: 1.25;
-  transform: translateX(-50%);
 }
 
 .core-5 {
@@ -943,6 +936,8 @@ input[type='number']::-webkit-outer-spin-button {
   z-index: 2;
   display: inline-grid;
   place-items: center;
+  line-height: 0;
+  overflow: hidden;
   width: 34px;
   height: 34px;
   border: 1px solid var(--stone);
@@ -951,6 +946,7 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .lifecycle-icon svg {
+  display: block;
   width: 16px;
   height: 16px;
 }
@@ -1521,19 +1517,15 @@ input[type='number']::-webkit-outer-spin-button {
   }
 
   .mobile-clearing-summary .core-orbit {
-    position: static;
     grid-row: 1 / 3;
     width: 36px;
     height: 36px;
     margin: 0;
-    transform: none;
   }
 
   .mobile-clearing-summary .clearing-core > strong,
   .mobile-clearing-summary .clearing-core > span:last-child {
-    position: static;
     max-width: unset;
-    transform: none;
   }
 
   .mobile-clearing-summary .clearing-core > span:last-child {

@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Corrected the lifecycle-badge fix to target the actual requested icons
+- **What was done/found**: The user clarified with screenshots that “lifecycle symbols” meant the Fund, Submit, Compute, Settle, and Withdraw icons in the Lifecycle rail—not the separate central clearing node. The previous release incorrectly repositioned the clearing node and made its status text overlap.
+- **What broke (if anything)**: The central clearing core layout was changed beyond the user’s request, producing a visibly broken node. This was a scope error, not an on-chain or data error.
+- **Fix made**: Restored the clearing core’s original flex layout and radial alignment. Applied baseline-free grid centering only to `.lifecycle-icon` and its SVG, which targets precisely the five requested circular lifecycle badges. App lint, all 10 frontend tests, and a clean production build pass.
+- **Why this matters / what rule it earned**: When a visual reference names a specific UI region, modify that region only. Do not infer a broader redesign from an ambiguous phrase; use the screenshot to identify the exact surface first.
+
+---
+
 ### 2026-08-01 — Restored real activity history and refined the final clearing visualization
 - **What was done/found**: The completed Round #1 screen made `Encrypted` route labels too faint because finalized state applied 28% opacity to both the routes and their labels. The user also confirmed the central lifecycle symbol still needed to sit in the actual center of the clearing circle. Separately, Round activity displayed zero events despite real transactions.
 - **What broke (if anything)**: PublicNode rejects the historical `eth_getLogs` query from the deployment block as an archive request, so the app had an empty event list even though the contract emitted 16 logs. The center icon was part of a vertically centered icon-and-text stack, not fixed to the core’s geometric center.
