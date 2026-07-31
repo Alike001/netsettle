@@ -123,8 +123,14 @@ export function useRoundActions(context: ActionContext) {
       run('Opening verified net positions', async () => {
         const { address, round, roundId } = requireRound();
         const client = await handleClient();
-        const pay = await publicDecryptThree(client.publicDecrypt, round.netPayHandles);
-        const receive = await publicDecryptThree(client.publicDecrypt, round.netReceiveHandles);
+        const pay = await publicDecryptThree(
+          (handle) => client.publicDecrypt(handle),
+          round.netPayHandles,
+        );
+        const receive = await publicDecryptThree(
+          (handle) => client.publicDecrypt(handle),
+          round.netReceiveHandles,
+        );
         await send('Confirm final settlement in your wallet', {
           address,
           abi: netSettleAbi,
@@ -182,8 +188,14 @@ export function useRoundActions(context: ActionContext) {
       run('Fetching Nox safety proofs', async () => {
         const { address, round, roundId } = requireRound();
         const client = await handleClient();
-        const sums = await publicDecryptThree(client.publicDecrypt, round.sumValidHandles);
-        const caps = await publicDecryptThree(client.publicDecrypt, round.withinCapHandles);
+        const sums = await publicDecryptThree(
+          (handle) => client.publicDecrypt(handle),
+          round.sumValidHandles,
+        );
+        const caps = await publicDecryptThree(
+          (handle) => client.publicDecrypt(handle),
+          round.withinCapHandles,
+        );
         await send('Confirm safety validation in your wallet', {
           address,
           abi: netSettleAbi,

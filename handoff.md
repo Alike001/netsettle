@@ -6,6 +6,8 @@ Read this FIRST at the start of every session, before doing anything else. This 
 
 (What's stuck, waiting on a decision, or broken right now)
 
+- Round #1 has all three encrypted submissions and is now computing in Nox. Account A's first safety-proof attempt failed before MetaMask opened with `Cannot read properties of undefined (reading 'apiService')`; no validation transaction was sent. The root cause and a locally verified frontend fix are ready to publish: retain the Handle client method's `this` context when requesting public-decryption proofs.
+
 - Phase 2 is complete: NetSettle and its twice-reduced three-participant scope are approved and saved in `.thoughts/specs/2026-07-31-netsettle.md`.
 - Phase 3 is complete. The user selected Direction 1, Clearing Triangle, and the binding design is saved in `design.doc.md`.
 - Phase 4 is approved. The demo script and technical plan are accepted, and `/home/ali/Desktop/wtf` is now the intended Git root.
@@ -19,12 +21,12 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - Desktop/mobile headless Chrome QA passed for the deployed empty-round surface. Connected-wallet interaction still needs a real browser wallet; Browser plugin and Playwright were unavailable, so no connector behavior was claimed as retested.
 - The public repository is https://github.com/Alike001/netsettle and its `main` branch tracks `origin/main`. The public frontend is live at https://netsettle-alike001s-projects.vercel.app. Vercel built the Vite workspace successfully after `.vercelignore` excluded local research clones. Project-level Vercel SSO deployment protection was disabled because its login wall prevented unauthenticated judges from viewing the app. Hosted desktop and mobile empty-round renders passed; connected-wallet interaction still requires actual wallet evidence.
 - The first real Sepolia round is live: Round #1 is in Funding and participant A (`0xdE67…7F71`) has confirmed collateral. The Activity panel is currently empty even though those events were emitted. A direct `eth_getLogs` request to the frontend's default PublicNode Sepolia endpoint returned HTTP 403; treat event-history retrieval as a production bug to fix before final evidence capture. Contract reads and write confirmations continue to work.
-- Round #1 is in Collecting obligations with all three deposits confirmed. The repaired browser adapter was deployed and Account C successfully submitted its encrypted `4` to A / `1` to B vector with a real MetaMask/Nox flow; the app now correctly reports two submissions remaining. Account B should submit `2` to A / `3` to C next, followed by Account A's `6` to B / `1` to C vector. After A confirms, capture Computing, reload, and retry only if the app offers validation.
+- Round #1 has all three encrypted obligation vectors confirmed: C submitted `4` to A / `1` to B, B submitted `2` to A / `3` to C, and A submitted `6` to B / `1` to C. The next on-chain stage is safety validation, then finalization and withdrawals.
 - README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Continue Round #1: submit B (2 to A, 3 to C) and A (6 to B, 1 to C), reload/retry during Nox computation, validate, finalize, and withdraw with transaction evidence.
+1. Publish the bound-public-decryption repair, hard-refresh the hosted app, then have Account A validate. Continue only after confirmation to finalization and withdrawals with transaction evidence.
 3. Diagnose and fix the production activity-log RPC path, then retest it against Round #1 before recording final evidence.
 4. Exercise the wrong-network, rejected-action, and refund paths, then replace every unchecked item in docs/demo-readiness.md with captured evidence, record the four-minute-or-shorter video, and prepare the tagged X post.
 

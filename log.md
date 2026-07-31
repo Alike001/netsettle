@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Fixed detached Nox public-decryption method during live validation
+- **What was done/found**: After every participant sealed a real encrypted obligation vector in Sepolia Round #1, Account A selected “Verify safety proofs.” The app stopped before MetaMask with `Cannot read properties of undefined (reading 'apiService')`; no validation transaction was signed or sent.
+- **What broke (if anything)**: The frontend passed `client.publicDecrypt` as a bare callback to a helper. JavaScript therefore removed the Handle client's `this` context, and the SDK could not access its internally initialized API service.
+- **Fix made**: Wrapped every public-decryption invocation in an arrow function that calls `client.publicDecrypt(handle)`, retaining the initialized Handle client for both validation and finalization. Context7 confirms this uses Nox's supported Viem Handle client and public-decryption API. App type-check, lint, all 10 frontend tests, and a clean Vite production build pass.
+- **Why this matters / what rule it earned**: SDK instance methods with internal services must never be detached as callbacks. A pre-wallet error means no on-chain action occurred; repair and deploy the client boundary before asking a participant to retry.
+
+---
+
 ### 2026-08-01 — Proved the repaired Nox browser wallet flow with Account C
 - **What was done/found**: After the Vercel deployment of the adapter repair, Account C successfully submitted its confidential `4` USDC obligation to A and `1` USDC obligation to B in the real Round #1. The UI changed to “Obligations sealed,” reported “Confirmed onchain,” and the clearing core correctly showed two submissions remaining.
 - **What broke (if anything)**: No error recurred. The prior failed attempt had not sent a transaction, so no duplicate action or financial state cleanup was needed.
