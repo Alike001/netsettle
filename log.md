@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Fixed the clean-build declaration gap in the wallet repair
+- **What was done/found**: The Nox browser-wallet repair passed locally but its first Vercel deployment failed before bundling: the clean TypeScript build did not know `Window.ethereum`, even though the local incremental build had passed.
+- **What broke (if anything)**: The project relied on a transitive browser-provider declaration that was not included under the app's explicit TypeScript `types` configuration. This made local incremental validation insufficiently representative of Vercel's clean checkout.
+- **Fix made**: Added the explicit EIP-1193 `Window.ethereum` declaration in `app/src/vite-env.d.ts`, cleared generated TypeScript build metadata, and reran the clean Vite build, app lint, and all ten app tests successfully. The repaired Vercel deployment and real MetaMask/Nox submission remain pending.
+- **Why this matters / what rule it earned**: When production TypeScript uses browser-provider globals, declare them in the application boundary and test from a clean build state. Cached builds cannot be treated as deployment proof.
+
+---
+
 ### 2026-08-01 — Repaired the Nox browser-wallet adapter during live Round #1
 - **What was done/found**: With all three participants funded, Account C attempted its first encrypted submission and the hosted app displayed `Unsupported client. Expected a viem WalletClient instance connected to an account.` The entered values were not submitted and no transaction was sent.
 - **What broke (if anything)**: The app passed Wagmi's generic connector client, extended with a TypeScript-only cast, into `createViemHandleClient`. The Nox SDK validates the runtime client shape and rejected it because it lacks the full Viem wallet-client action surface.
