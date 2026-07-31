@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Added a no-transaction deployer identity check
+- **What was done/found**: The corrected RPC value passed the live Sepolia preflight. The user identified that the Hardhat keystore password may also have been stored as `SEPOLIA_PRIVATE_KEY` instead of an Ethereum account private key.
+- **What broke (if anything)**: The private-key entry is likely malformed, but retrieving it would unnecessarily expose sensitive material and is not an acceptable verification method.
+- **Fix made**: Added `npm run check:deployer`, which resolves the configured account, verifies Sepolia chain ID, and prints only its public address and ETH balance. It never signs or sends a transaction. Formatting, type-check, lint, Solidity compilation, and the production frontend build pass.
+- **Why this matters / what rule it earned**: Verify deployment identity by deriving the public address, never by displaying or sharing a private key. A password is not a wallet private key, and the deployer address must be confirmed before any gas-spending command.
+
+---
+
 ### 2026-07-31 — Diagnosed the Sepolia preflight HHE8 failure
 - **What was done/found**: Confirmed against the installed Hardhat 3.12.0 error descriptors that HHE8 means `Invalid URL`. `hardhat keystore list` also confirmed that both expected production-keystore key names exist.
 - **What broke (if anything)**: The value stored under `SEPOLIA_RPC_URL` is not a URL Hardhat accepts, so the read-only preflight stops during network configuration before making an RPC request.

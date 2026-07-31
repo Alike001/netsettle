@@ -70,10 +70,11 @@ npx hardhat keystore set SEPOLIA_RPC_URL
 npx hardhat keystore set SEPOLIA_PRIVATE_KEY
 cd ..
 XDG_CACHE_HOME="$PWD/.cache" npm run check:sepolia
+XDG_CACHE_HOME="$PWD/.cache" npm run check:deployer
 XDG_CACHE_HOME="$PWD/.cache" npm run deploy:sepolia
 ```
 
-The read-only preflight verifies the RPC chain ID, official USDC bytecode and metadata, and NoxCompute bytecode before deployment spends Sepolia gas. The Ignition deployment is resumable and pins the token and one-hour compute timeout in code.
+The first read-only preflight verifies the RPC chain ID, official USDC bytecode and metadata, and NoxCompute bytecode. The deployer check derives only the configured account's public address and Sepolia ETH balance; it signs and sends nothing. Confirm that address before running the resumable Ignition deployment, which pins the token and one-hour compute timeout in code.
 
 After deployment, copy `app/.env.example` to `app/.env.local` and set only public values:
 

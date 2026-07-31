@@ -16,12 +16,12 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - The exact DoraHacks submission closing timestamp and timezone were not exposed by the accessible page. An indexed announcement says August 1, but the live DoraHacks countdown/Discord announcement must be checked before submission.
 - The Sepolia release path is prepared and verified read-only. Official Circle test USDC, NoxCompute, the one-hour timeout, Hardhat keystore config, preflight, and Ignition deployment are pinned; the module also deploys successfully on an in-process chain.
 - The user successfully stored `SEPOLIA_RPC_URL` and `SEPOLIA_PRIVATE_KEY` through Hardhat's encrypted production keystore. Live deployment still requires a passing preflight, a funded Sepolia wallet, and explicit authority to spend its Sepolia ETH; no secret may enter chat, Git, or a project `.env`.
-- The first keystore-backed preflight failed with Hardhat HHE8 (`Invalid URL`). Both key names exist, so `SEPOLIA_RPC_URL` must be overwritten with a valid complete HTTPS endpoint; do not change the stored private key.
+- The corrected keystore-backed Sepolia preflight passes. The user believes the keystore password was mistakenly stored as `SEPOLIA_PRIVATE_KEY`; overwrite that entry locally with the intended Ethereum account private key, then validate only its derived public address and ETH balance with `npm run check:deployer`.
 - README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Overwrite only `SEPOLIA_RPC_URL` with a valid complete HTTPS endpoint, rerun the read-only preflight, confirm the configured wallet has Sepolia ETH, then obtain explicit approval before running `npm run deploy:sepolia`.
+1. Overwrite `SEPOLIA_PRIVATE_KEY` with the intended wallet's actual private key, run the no-transaction deployer check, confirm its public address and Sepolia ETH balance, then obtain explicit approval before running `npm run deploy:sepolia`.
 2. Record the NetSettle address and deployment block in the public README/frontend config, deploy the frontend, and exercise the three-wallet path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
 3. Replace every unchecked item in `docs/demo-readiness.md` with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
 
@@ -49,6 +49,7 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - The pinned Ethereum Sepolia NoxCompute address is `0x24Ef36Ec5b626D7DCD09a98F3083c2758F0F77bF`, and the live preflight must pass before any deployment.
 - The compute recovery window is 3,600 seconds. Changing it or the pinned token requires explicit review; do not override either at deployment time.
 - Store `SEPOLIA_PRIVATE_KEY` only through Hardhat's interactive encrypted keystore. Never put it in shell history, a `.env`, documentation, Git, chat, or frontend variables.
+- Never use `hardhat keystore get` to validate a wallet key. Use `npm run check:deployer`, which prints only the derived public address and Sepolia ETH balance and sends no transaction.
 - Hardhat 3.12.0 HHE8 means `Invalid URL`. Store only the raw complete RPC URL as the keystore value—no `SEPOLIA_RPC_URL=` prefix, quotes, or surrounding spaces.
 - In Hardhat tests, scope each Handle wallet client's `getAddresses()` result to its signing account. The SDK otherwise selects the first RPC account as the encryption owner and valid proofs from later accounts fail with `Owner mismatch`.
 - Never weaken Nox owner/application proof checks to make a test pass. Fix the wallet adapter so encryption and transaction signatures identify the same account.
