@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Captured wrong-network recovery and full onchain activity evidence
+- **What was done/found**: A real connected MetaMask wallet was switched away from Ethereum Sepolia. NetSettle showed its explicit “Wrong network / Switch to Sepolia” state and requested no transaction. The wallet then returned to Sepolia successfully. The Round activity panel now displays all 16 verified Round #1 events, including three withdrawals, finalization, validation state changes, and encrypted submissions, each with an explorer link.
+- **What broke (if anything)**: Nothing failed in the recovery flow. This confirms the archive-capable RPC fallback repair is working in the deployed browser application, not merely through a command-line check.
+- **Fix made**: Marked wrong-network recovery complete in the evidence checklist and updated handoff actions to focus on the remaining rejection/refund, video, backup, clean-install, and X-post evidence.
+- **Why this matters / what rule it earned**: A network guard must be demonstrated as a safe recovery flow—block cross-network actions, request an explicit switch, and reconstruct verified history after return—not merely represented by a badge.
+
+---
+
 ### 2026-08-01 — Published real Round #1 transaction evidence
 - **What was done/found**: Queried the archive-capable Sepolia RPC for the deployed NetSettle contract and verified 16 Round #1 events. The complete chain record covers round creation, all three deposits, all three encrypted submissions, computation/validation state transitions, finalization, and all three withdrawals.
 - **What broke (if anything)**: The public README and demo checklist still described the required three-wallet Sepolia evidence as pending even after the successful live run.
