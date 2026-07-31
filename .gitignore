@@ -22,3 +22,4 @@ deployments/local/
 deployments/sepolia/private/
 contracts/ignition/deployments/*/artifacts/
 contracts/ignition/deployments/*/build-info/
+.vercel

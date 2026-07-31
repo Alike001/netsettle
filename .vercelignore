@@ -1,0 +1,6 @@
+# Local, read-only research clones are not part of the NetSettle application.
+# Excluding them prevents framework detection from selecting one of the cloned apps.
+research/repos/
+
+# Design references are QA inputs, not web assets.
+assets/design/

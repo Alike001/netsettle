@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Connected the public repository and corrected Vercel framework detection
+- **What was done/found**: Created and pushed the public repository at `https://github.com/Alike001/netsettle`; local `main` now tracks `origin/main`. Linked Vercel project `alike001s-projects/netsettle` to that repository. The initial production deploy failed after Vercel detected an unrelated Next.js reference clone under `research/repos/reference-builders/winsznx-vellum/web` and built it instead of NetSettle.
+- **What broke (if anything)**: Vercel CLI auto-added an incorrect experimental service entry to `vercel.json`; the failed deployment built the cloned reference app, not the configured Vite workspace. Context7 was unavailable during the deployment configuration check.
+- **Fix made**: Restored the root `npm ci` / `npm run build --workspace app` / `app/dist` configuration, added `.vercelignore` to exclude only unshipped research clones and visual QA references, and ignored local `.vercel` link metadata. `vercel.json` validates and the Vite production build passes locally. A clean production redeploy remains pending.
+- **Why this matters / what rule it earned**: Research material may live beside a product workspace, but it must never influence framework detection or deploy. Vercel source uploads must contain only the product's intended build inputs.
+
+---
+
 ### 2026-07-31 — Identified the GitHub publishing blocker
 - **What was done/found**: Confirmed the local Vercel hosting commit is on a clean `main` branch and GitHub CLI 2.96.0 is installed. The saved active GitHub account is `Alike001`, but its token is invalid; the repository has no remote yet.
 - **What broke (if anything)**: `gh auth status` fails before repository creation because the saved GitHub credential is no longer valid.
