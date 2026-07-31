@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Proved NetSettle against the real local Nox stack
+- **What was done/found**: Implemented the fixed three-participant settlement state machine, encrypted obligation submission, Nox safe arithmetic, staged public decryption, deterministic conservation checks, exact withdrawals, expiry, and refunds. Added five deterministic unit tests and three Docker-backed Nox integration tests covering a valid conserved settlement, an over-collateral failure, and an encrypted `uint256` overflow. All eight tests pass.
+- **What broke (if anything)**: The first Nox run rejected participant B's encrypted inputs with `Owner mismatch`. Hardhat's wallet clients expose every local account through `getAddresses()`, while the Handle SDK selected the first returned address as the encryption owner even when a different account signed.
+- **Fix made**: Scoped each test Handle client so `getAddresses()` returns only its signing participant. The production ownership check stayed intact; no contract validation was weakened. Invalid rounds now prove only their Boolean failure flags, never expose net-position handles, and refund all funded participants.
+- **Why this matters / what rule it earned**: A Handle client must have one unambiguous owner address. Test and production wallet adapters must bind encryption ownership to the same account that signs. This SDK behavior should be documented in `feedback.md`.
+
+---
+
 ### 2026-07-31 — Pinned and verified the Phase 4 workspace
 - **What was done/found**: Created npm workspaces for Hardhat/Nox contracts and the React/Vite app, pinned every direct dependency, generated the lockfile, added ESLint/Prettier/TypeScript gates, and validated Solidity 0.8.35 download/compilation plus both workspace type-checks and lints. The production dependency audit reports zero vulnerabilities.
 - **What broke (if anything)**: Hardhat initially tried to write its compiler list to the read-only home cache. Vitest 3.2.7 fixed its disclosed critical issue but bundled an older Vite type system that conflicted with Vite 8. The full audit still reports 18 development-only findings through ESLint/Hardhat verification dependencies.

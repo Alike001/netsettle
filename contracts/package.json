@@ -4,12 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc --build && hardhat compile",
+    "build": "npm run typecheck && hardhat compile",
     "compile": "hardhat compile",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "hardhat test test/unit",
-    "test:nox": "hardhat test test/integration"
+    "test": "hardhat test test/unit/*.test.ts",
+    "test:nox": "hardhat test test/integration/*.test.ts"
   },
   "dependencies": {
     "@iexec-nox/nox-protocol-contracts": "0.2.4",
@@ -17,8 +17,9 @@
     "viem": "2.55.10"
   },
   "devDependencies": {
+    "@iexec-nox/handle": "0.1.0-beta.13",
     "@iexec-nox/nox-hardhat-plugin": "0.2.0",
-    "@nomicfoundation/hardhat-toolbox-viem": "5.0.3",
+    "@nomicfoundation/hardhat-toolbox-viem": "5.0.7",
     "@tsconfig/node22": "22.0.2",
     "@types/node": "22.15.3",
     "hardhat": "3.12.0",
