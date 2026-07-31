@@ -17,7 +17,9 @@
   ],
   "include": [
     "${configDir}/hardhat.config.ts",
+    "${configDir}/ignition/**/*.ts",
     "${configDir}/scripts/**/*.ts",
+    "${configDir}/src/**/*.ts",
     "${configDir}/test/**/*.ts"
   ]
 }

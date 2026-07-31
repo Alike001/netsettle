@@ -14,12 +14,15 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - The contract slice is implemented. Five unit tests and three real Docker-backed Nox integration tests pass, including valid conservation/withdrawal, over-cap privacy/refund, and encrypted-overflow privacy/refund.
 - The Clearing Triangle frontend is implemented against real Wagmi/Nox state. Nine app tests, root lint/type-check/build, and desktop/mobile Playwright QA pass. The activity interaction showed four real local-chain events and the final browser session had zero warnings/errors.
 - The exact DoraHacks submission closing timestamp and timezone were not exposed by the accessible page. An indexed announcement says August 1, but the live DoraHacks countdown/Discord announcement must be checked before submission.
-- ETH Sepolia deployment and evidence are still pending; a funded deployment wallet and current Nox Sepolia addresses/RPC configuration are required before that gate can pass.
+- The Sepolia release path is prepared and verified read-only. Official Circle test USDC, NoxCompute, the one-hour timeout, Hardhat keystore config, preflight, and Ignition deployment are pinned; the module also deploys successfully on an in-process chain.
+- Live Sepolia deployment and three-wallet evidence remain pending. They require a funded testnet deployment wallet configured locally in Hardhat's encrypted keystore and explicit authority to spend its Sepolia ETH; no secret may enter chat, Git, or a project `.env`.
+- README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Deploy the token/contract and frontend on ETH Sepolia, then exercise the three-wallet path and capture addresses, transaction evidence, reload/retry, wrong-network, and rejected-wallet results.
-2. Finish README, `feedback.md`, demo-day fallbacks, submission assets, and the four-minute video.
+1. Configure `SEPOLIA_RPC_URL` and a funded `SEPOLIA_PRIVATE_KEY` interactively in Hardhat's encrypted keystore, then obtain explicit approval before running `npm run deploy:sepolia`.
+2. Record the NetSettle address and deployment block in the public README/frontend config, deploy the frontend, and exercise the three-wallet path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
+3. Replace every unchecked item in `docs/demo-readiness.md` with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
 
 ## Standing rules this project has earned
 
@@ -41,6 +44,10 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - Prefer Nox safe arithmetic variants for financial logic and test overflow, underflow, and division boundaries.
 - Pin and commit one tested dependency set: current packages have version drift across docs, starter, plugin, and beta Handle SDK releases.
 - In this sandbox, run Hardhat with `XDG_CACHE_HOME=/home/ali/Desktop/wtf/.cache`; the normal home cache is read-only.
+- The final settlement token is official Circle test USDC at `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`; it has 6 decimals and no financial value. Do not deploy a new mock token on Sepolia.
+- The pinned Ethereum Sepolia NoxCompute address is `0x24Ef36Ec5b626D7DCD09a98F3083c2758F0F77bF`, and the live preflight must pass before any deployment.
+- The compute recovery window is 3,600 seconds. Changing it or the pinned token requires explicit review; do not override either at deployment time.
+- Store `SEPOLIA_PRIVATE_KEY` only through Hardhat's interactive encrypted keystore. Never put it in shell history, a `.env`, documentation, Git, chat, or frontend variables.
 - In Hardhat tests, scope each Handle wallet client's `getAddresses()` result to its signing account. The SDK otherwise selects the first RPC account as the encryption owner and valid proofs from later accounts fail with `Owner mismatch`.
 - Never weaken Nox owner/application proof checks to make a test pass. Fix the wallet adapter so encryption and transaction signatures identify the same account.
 - The Handle SDK currently sends plaintext to the trusted Nox gateway over TLS for encryption. Never claim that current browser inputs are encrypted locally or that the gateway cannot see plaintext.

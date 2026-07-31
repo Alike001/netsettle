@@ -1,6 +1,6 @@
 import noxPlugin from '@iexec-nox/nox-hardhat-plugin';
 import hardhatToolboxViemPlugin from '@nomicfoundation/hardhat-toolbox-viem';
-import { defineConfig } from 'hardhat/config';
+import { configVariable, defineConfig } from 'hardhat/config';
 
 export default defineConfig({
   plugins: [hardhatToolboxViemPlugin, noxPlugin],
@@ -21,6 +21,17 @@ export default defineConfig({
     default: {
       type: 'edr-simulated',
       chainId: 31337,
+    },
+    sepoliaReadOnly: {
+      type: 'http',
+      chainType: 'l1',
+      url: configVariable('SEPOLIA_RPC_URL'),
+    },
+    sepolia: {
+      type: 'http',
+      chainType: 'l1',
+      url: configVariable('SEPOLIA_RPC_URL'),
+      accounts: [configVariable('SEPOLIA_PRIVATE_KEY')],
     },
   },
 });

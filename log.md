@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Made the Sepolia release path fail-closed and reproducible
+- **What was done/found**: Pinned official Circle test USDC and the package-selected NoxCompute address for Ethereum Sepolia, chose a one-hour asynchronous recovery window, added secure Hardhat keystore network configuration, a resumable Ignition module, a read-only dependency preflight, two configuration tests, the public README, evidence-based `feedback.md`, and a demo-readiness checklist. The live preflight confirmed chain `11155111`, USDC bytecode/metadata, and NoxCompute bytecode. The deployment module succeeded on an in-process chain. All formatting, lint, type-check, 7 contract/config tests, 9 frontend tests, and production builds pass.
+- **What broke (if anything)**: Context7 remained unreachable, and the first live preflight was blocked by sandbox DNS. No funded Sepolia deployer is configured, so the real deployment and three-wallet evidence remain intentionally incomplete.
+- **Fix made**: Verified Hardhat 3 syntax against the installed official templates, retried the read-only RPC check with explicit network permission, and kept the private key entirely outside the repository through Hardhat's encrypted keystore. The deploy script cannot silently substitute another token or timeout.
+- **Why this matters / what rule it earned**: Never spend even testnet gas before verifying the chain and dependency bytecode. NetSettle's final deployment is pinned to Circle test USDC `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`, NoxCompute `0x24Ef36Ec5b626D7DCD09a98F3083c2758F0F77bF`, and a 3,600-second recovery window; any change requires an explicit reviewed code change.
+
+---
+
 ### 2026-07-31 — Built and browser-verified the Clearing Triangle frontend
 - **What was done/found**: Built the contract-backed React/Wagmi interface for round creation, exact collateral approval/funding, two-value Nox encryption, staged public proof validation/finalization, withdrawal, expiry/refund, reload-safe polling, real event history, wrong-network handling, and explicit no-deployment/read-failure states. Added nine view-model/input tests. Root formatting, type-check, lint, unit tests, and production build pass. Playwright verified a real locally deployed two-of-three Funding round at 1536×1024 and 390×844, opened the activity disclosure, and found zero current console warnings/errors.
 - **What broke (if anything)**: Context7 remained unreachable. The first rendered contract reads returned zero data because wagmi’s default client batching targeted Sepolia’s Multicall contract, which does not exist on the offline Hardhat fallback chain. The initial page also requested a missing favicon. React 19 lint rejected an impure render-time clock and effect-seeded form state. Root Hardhat gates again required the workspace cache because the sandbox home cache is read-only.

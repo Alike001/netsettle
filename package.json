@@ -13,6 +13,8 @@
   ],
   "scripts": {
     "build": "npm run build --workspace contracts && npm run build --workspace app",
+    "check:sepolia": "npm run check:sepolia --workspace contracts",
+    "deploy:sepolia": "npm run deploy:sepolia --workspace contracts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "npm run lint --workspace contracts && npm run lint --workspace app",

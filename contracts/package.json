@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "npm run typecheck && hardhat compile",
+    "check:sepolia": "hardhat run --network sepoliaReadOnly scripts/check-sepolia.ts",
     "compile": "hardhat compile",
+    "deploy:sepolia": "hardhat ignition deploy --network sepolia --deployment-id netsettle-sepolia ignition/modules/NetSettle.ts",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "hardhat test test/unit/*.test.ts",
