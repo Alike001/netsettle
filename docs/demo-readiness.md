@@ -21,8 +21,8 @@ This file tracks evidence. An unchecked item must not be described as complete.
 - [ ] Wrong-network recovery
 - [ ] Rejected non-participant or rejected duplicate action
 - [ ] Expired or invalid round refund evidence
-- [ ] Hosted frontend URL tested in a fresh browser
-- [ ] Final desktop and mobile screenshots from the hosted Sepolia app
+- [x] Hosted frontend URL tested in a fresh browser: https://netsettle-alike001s-projects.vercel.app
+- [x] Final desktop and mobile screenshots from the hosted Sepolia app (empty-round, unauthenticated Vercel renders verified on 2026-07-31)
 - [ ] Four-minute-or-shorter recorded demo
 - [ ] Local copy of the video and screenshots for offline presentation
 - [ ] Public repository clone/install check on a clean machine

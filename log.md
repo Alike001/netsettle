@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Released NetSettle’s public Vercel frontend
+- **What was done/found**: The Vite frontend is live at `https://netsettle-alike001s-projects.vercel.app`; the stable alias returns NetSettle HTML and rendered correctly in unauthenticated desktop (1440×1000) and mobile (390×844) headless Chrome checks. The deployed frontend points to the verified public Sepolia contract and requires no environment variables or wallet secrets.
+- **What broke (if anything)**: The first Vercel project was accidentally configured as the `services` framework after it detected a local cloned Next.js reference app. The next build correctly found NetSettle but was rejected by that persisted project-level framework setting. The successful build initially displayed Vercel's SSO login page to unauthenticated visitors.
+- **Fix made**: Excluded the reference clones with `.vercelignore`, restored the Vite workspace build configuration, changed the Vercel project framework from `services` to `vite`, and disabled only Vercel SSO deployment protection. The final Vercel logs show `npm ci`, `npm run build --workspace app`, Vite’s successful 2,033-module production build, and `Deployment completed`.
+- **Why this matters / what rule it earned**: A hackathon frontend is not deployed until an unauthenticated visitor sees the product itself. Hosting checks must test the stable public alias in a clean browser, not merely rely on a successful build record.
+
+---
+
 ### 2026-07-31 — Connected the public repository and corrected Vercel framework detection
 - **What was done/found**: Created and pushed the public repository at `https://github.com/Alike001/netsettle`; local `main` now tracks `origin/main`. Linked Vercel project `alike001s-projects/netsettle` to that repository. The initial production deploy failed after Vercel detected an unrelated Next.js reference clone under `research/repos/reference-builders/winsznx-vellum/web` and built it instead of NetSettle.
 - **What broke (if anything)**: Vercel CLI auto-added an incorrect experimental service entry to `vercel.json`; the failed deployment built the cloned reference app, not the configured Vite workspace. Context7 was unavailable during the deployment configuration check.

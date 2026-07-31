@@ -17,14 +17,13 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - NetSettle is deployed and independently verified on Ethereum Sepolia: contract 0x9f10b266F90638fC058e0891901082Fe9eccD8EA, deployment transaction 0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee, block 11388543, Circle test USDC, 3,600-second timeout, and zero rounds. The frontend defaults to this public configuration with no environment file required.
 - The configured deployer is public address 0xde67a35b322e5a31e8215b5245ca4e48d7977f71; its balance was 0.04792394118394006 ETH immediately before deployment. No secret may enter chat, Git, or a project environment file.
 - Desktop/mobile headless Chrome QA passed for the deployed empty-round surface. Connected-wallet interaction still needs a real browser wallet; Browser plugin and Playwright were unavailable, so no connector behavior was claimed as retested.
-- The public repository is https://github.com/Alike001/netsettle and its `main` branch tracks `origin/main`. The Vercel project `alike001s-projects/netsettle` is linked to the repository. Its first production deployment failed because Vercel detected a local cloned reference-builder Next.js app under `research/repos/`; `.vercelignore` now excludes that unshipped research folder and visual QA references. The Vite workspace build passes locally; a fresh Vercel production deploy is next.
+- The public repository is https://github.com/Alike001/netsettle and its `main` branch tracks `origin/main`. The public frontend is live at https://netsettle-alike001s-projects.vercel.app. Vercel built the Vite workspace successfully after `.vercelignore` excluded local research clones. Project-level Vercel SSO deployment protection was disabled because its login wall prevented unauthenticated judges from viewing the app. Hosted desktop and mobile empty-round renders passed; connected-wallet interaction still requires actual wallet evidence.
 - README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Trigger and verify the corrected Vercel production deployment. Do not add wallet secrets to Vercel.
-2. Exercise the complete three-wallet Sepolia path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
-3. Replace every unchecked item in docs/demo-readiness.md with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
+1. Exercise the complete three-wallet Sepolia path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
+2. Replace every unchecked item in docs/demo-readiness.md with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
 
 ## Standing rules this project has earned
 

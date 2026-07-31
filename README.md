@@ -22,6 +22,7 @@ The current Handle SDK sends an entered amount over TLS to the trusted Nox gatew
 | Deployment transaction  | [0x5b46…10ee](https://sepolia.etherscan.io/tx/0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee) |
 | Deployment block        | `11388543`                                                                                                        |
 | Compute recovery window | 1 hour                                                                                                            |
+| Hosted frontend         | [netsettle-alike001s-projects.vercel.app](https://netsettle-alike001s-projects.vercel.app)                       |
 
 Circle test USDC has no financial value. The deployment was confirmed with the contract's public token and compute-timeout getters.
 
@@ -89,10 +90,11 @@ npm run dev --workspace app
 
 ## Host the frontend on Vercel
 
-Vercel is configured at the repository root in `vercel.json`. Import the public
-GitHub repository into Vercel, leave **Root Directory** at the repository root,
-and accept the detected settings. Vercel will run `npm ci`, build the `app`
-workspace, and publish `app/dist`.
+The public frontend is live at
+[netsettle-alike001s-projects.vercel.app](https://netsettle-alike001s-projects.vercel.app).
+Vercel is configured at the repository root in `vercel.json` and `.vercelignore`
+excludes local research clones. Vercel runs `npm ci`, builds the `app` workspace,
+and publishes `app/dist`.
 
 The hosted frontend contains only the public NetSettle Sepolia address and a
 public RPC fallback. Do not configure `SEPOLIA_PRIVATE_KEY`, a seed phrase, or
