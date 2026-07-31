@@ -22,7 +22,7 @@ The current Handle SDK sends an entered amount over TLS to the trusted Nox gatew
 | Deployment transaction  | [0x5b46…10ee](https://sepolia.etherscan.io/tx/0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee) |
 | Deployment block        | `11388543`                                                                                                        |
 | Compute recovery window | 1 hour                                                                                                            |
-| Hosted frontend         | [netsettle-alike001s-projects.vercel.app](https://netsettle-alike001s-projects.vercel.app)                       |
+| Hosted frontend         | [netsettle-alike001s-projects.vercel.app](https://netsettle-alike001s-projects.vercel.app)                        |
 
 Circle test USDC has no financial value. The deployment was confirmed with the contract's public token and compute-timeout getters.
 
@@ -112,6 +112,6 @@ any wallet secret in Vercel.
 
 ## Current status
 
-The contract, confidential local integration, frontend, responsive browser QA, and deployment safeguards are complete. The required three-wallet Ethereum Sepolia evidence is still pending and is not represented with mock data.
+The contract, confidential local integration, frontend, responsive browser QA, deployment safeguards, and a complete three-wallet Ethereum Sepolia round are complete. Round #1 used six real encrypted obligation submissions, passed Nox safety validation, finalized the conserved public net positions, and completed all three one-time withdrawals. Its public activity can be reviewed directly in the deployed app or through the linked transaction evidence in [docs/demo-readiness.md](docs/demo-readiness.md).
 
 This is hackathon software for testnet use, not audited production custody code.

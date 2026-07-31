@@ -6,7 +6,7 @@ Read this FIRST at the start of every session, before doing anything else. This 
 
 (What's stuck, waiting on a decision, or broken right now)
 
-- The lifecycle-rail badge-centering correction is locally verified and needs publishing to Vercel. The prior release incorrectly repositioned the separate central clearing node and caused its text to overlap; this correction restores that core exactly and changes only the five Lifecycle badges. Browser-plugin and Playwright visual automation are unavailable in this workspace, so the final hosted visual check needs a human hard-refresh.
+- The final hosted visual check needs a human hard-refresh: confirm the restored clearing core, centered Fund/Submit/Compute/Settle/Withdraw icons, readable encrypted labels, and 16 Round #1 chain events. Browser-plugin and Playwright visual automation are unavailable in this workspace.
 
 - Phase 2 is complete: NetSettle and its twice-reduced three-participant scope are approved and saved in `.thoughts/specs/2026-07-31-netsettle.md`.
 - Phase 3 is complete. The user selected Direction 1, Clearing Triangle, and the binding design is saved in `design.doc.md`.
@@ -26,8 +26,8 @@ Read this FIRST at the start of every session, before doing anything else. This 
 
 ## Next actions (in order)
 
-1. Publish the lifecycle-rail badge-centering correction, hard-refresh the hosted app, and visually confirm the restored central clearing node, centered Fund/Submit/Compute/Settle/Withdraw icons, readable encrypted labels, and 16 verified Round #1 events.
-2. Exercise the wrong-network, rejected-action, and refund paths, then replace every unchecked item in docs/demo-readiness.md with captured evidence, record the four-minute-or-shorter video, and prepare the tagged X post.
+1. Hard-refresh the hosted app and visually confirm the restored central clearing node, centered Fund/Submit/Compute/Settle/Withdraw icons, readable encrypted labels, and 16 verified Round #1 events.
+2. Exercise the wrong-network, rejected-action, and refund paths, then replace every remaining unchecked item in docs/demo-readiness.md with captured evidence, record the four-minute-or-shorter video, and prepare the tagged X post.
 
 ## Standing rules this project has earned
 

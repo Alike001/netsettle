@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Published real Round #1 transaction evidence
+- **What was done/found**: Queried the archive-capable Sepolia RPC for the deployed NetSettle contract and verified 16 Round #1 events. The complete chain record covers round creation, all three deposits, all three encrypted submissions, computation/validation state transitions, finalization, and all three withdrawals.
+- **What broke (if anything)**: The public README and demo checklist still described the required three-wallet Sepolia evidence as pending even after the successful live run.
+- **Fix made**: Updated `docs/demo-readiness.md` with the real Etherscan links for creation, funding, submissions, validation, finalization, and all withdrawals; marked only the genuinely proven funding, full-round, and reload/retry evidence complete. Updated the README’s current status to describe the real completed Sepolia round. Wrong-network, rejection, refund, video, offline backup, clean clone, and X-post requirements remain intentionally unchecked.
+- **Why this matters / what rule it earned**: Submission claims must be backed by public transaction evidence, while untested requirements must remain visibly incomplete rather than being inferred from the happy path.
+
+---
+
 ### 2026-08-01 — Corrected the lifecycle-badge fix to target the actual requested icons
 - **What was done/found**: The user clarified with screenshots that “lifecycle symbols” meant the Fund, Submit, Compute, Settle, and Withdraw icons in the Lifecycle rail—not the separate central clearing node. The previous release incorrectly repositioned the clearing node and made its status text overlap.
 - **What broke (if anything)**: The central clearing core layout was changed beyond the user’s request, producing a visibly broken node. This was a scope error, not an on-chain or data error.
