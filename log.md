@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-07-31 — Passed the Sepolia deployer safety gate
+- **What was done/found**: The no-transaction deployer check successfully derived public address `0xde67a35b322e5a31e8215b5245ca4e48d7977f71` on Ethereum Sepolia and reported a `0.04792394118394006 ETH` testnet balance.
+- **What broke (if anything)**: Nothing failed, and no transaction was signed or sent. Live deployment remains gated on explicit approval because it will spend Sepolia test ETH.
+- **Fix made**: Replaced the previously malformed private-key keystore value locally and validated only the resulting public identity and balance.
+- **Why this matters / what rule it earned**: The deployer identity and funding must be proven before deployment, but passing a read-only check never implies permission to spend gas.
+
+---
+
 ### 2026-07-31 — Added a no-transaction deployer identity check
 - **What was done/found**: The corrected RPC value passed the live Sepolia preflight. The user identified that the Hardhat keystore password may also have been stored as `SEPOLIA_PRIVATE_KEY` instead of an Ethereum account private key.
 - **What broke (if anything)**: The private-key entry is likely malformed, but retrieving it would unnecessarily expose sensitive material and is not an acceptable verification method.

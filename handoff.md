@@ -15,13 +15,13 @@ Read this FIRST at the start of every session, before doing anything else. This 
 - The Clearing Triangle frontend is implemented against real Wagmi/Nox state. Nine app tests, root lint/type-check/build, and desktop/mobile Playwright QA pass. The activity interaction showed four real local-chain events and the final browser session had zero warnings/errors.
 - The exact DoraHacks submission closing timestamp and timezone were not exposed by the accessible page. An indexed announcement says August 1, but the live DoraHacks countdown/Discord announcement must be checked before submission.
 - The Sepolia release path is prepared and verified read-only. Official Circle test USDC, NoxCompute, the one-hour timeout, Hardhat keystore config, preflight, and Ignition deployment are pinned; the module also deploys successfully on an in-process chain.
-- The user successfully stored `SEPOLIA_RPC_URL` and `SEPOLIA_PRIVATE_KEY` through Hardhat's encrypted production keystore. Live deployment still requires a passing preflight, a funded Sepolia wallet, and explicit authority to spend its Sepolia ETH; no secret may enter chat, Git, or a project `.env`.
-- The corrected keystore-backed Sepolia preflight passes. The user believes the keystore password was mistakenly stored as `SEPOLIA_PRIVATE_KEY`; overwrite that entry locally with the intended Ethereum account private key, then validate only its derived public address and ETH balance with `npm run check:deployer`.
+- The corrected keystore-backed Sepolia preflight passes. The configured deployer check also passes for public address `0xde67a35b322e5a31e8215b5245ca4e48d7977f71` with `0.04792394118394006 ETH` on Sepolia, and no transaction was signed or sent.
+- Live Sepolia deployment is now blocked only on explicit user authority to spend testnet gas; no secret may enter chat, Git, or a project `.env`.
 - README, `feedback.md`, and the demo-readiness/evidence checklist now exist. Their deployment fields are honestly marked pending rather than populated with local or mock data.
 
 ## Next actions (in order)
 
-1. Overwrite `SEPOLIA_PRIVATE_KEY` with the intended wallet's actual private key, run the no-transaction deployer check, confirm its public address and Sepolia ETH balance, then obtain explicit approval before running `npm run deploy:sepolia`.
+1. Obtain explicit user approval, then run `npm run deploy:sepolia` and preserve the resulting Ignition evidence.
 2. Record the NetSettle address and deployment block in the public README/frontend config, deploy the frontend, and exercise the three-wallet path with transaction evidence, reload/retry, wrong-network, rejected-action, and refund results.
 3. Replace every unchecked item in `docs/demo-readiness.md` with captured evidence, then record the four-minute-or-shorter video and prepare the tagged X post.
 
