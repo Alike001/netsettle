@@ -4,6 +4,14 @@ Tell Codex to add a new entry here after every meaningful session. Never edit or
 
 ---
 
+### 2026-08-01 — Proved real expired-round recovery and all refunds
+- **What was done/found**: Round #2 was created with a 5-USDC collateral cap for the same three wallets, all three deposits arrived, and no encrypted obligations were submitted. After its deadline, participant C marked the round expired. Participants C, A, and B each claimed the full 5-USDC refund; the hosted app shows “Refund claimed” for all three and “Claim complete” for the connected wallet.
+- **What broke (if anything)**: Nothing failed. The contract’s recovery path kept confidential handles closed and returned only the exact deposited collateral, as designed.
+- **Fix made**: Queried Sepolia to verify 26 total NetSettle event logs across both rounds, added public expiry/refund transaction links to `docs/demo-readiness.md`, and updated README/handoff status. Every functional evidence item is now checked; video, local backup, clean-clone verification, and the tagged X post remain pending.
+- **Why this matters / what rule it earned**: Financial privacy products need a real timeout exit, not only a happy settlement path. Recovery must be demonstrated with actual collateral return and public transaction evidence before it is claimed as complete.
+
+---
+
 ### 2026-08-01 — Added a real next-round creation path for recovery testing and continued use
 - **What was done/found**: The approved expiry/refund test requires a second onchain round, but the interface previously exposed creation only when the contract had zero rounds. A completed clearing product needs a way to open its next fixed group after the first group has withdrawn.
 - **What broke (if anything)**: There was no contract issue; the UI simply hid its existing creation flow after Round #1, blocking the approved recovery test from being performed through the product.

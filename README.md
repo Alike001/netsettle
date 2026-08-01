@@ -112,6 +112,6 @@ any wallet secret in Vercel.
 
 ## Current status
 
-The contract, confidential local integration, frontend, responsive browser QA, deployment safeguards, and a complete three-wallet Ethereum Sepolia round are complete. Round #1 used six real encrypted obligation submissions, passed Nox safety validation, finalized the conserved public net positions, and completed all three one-time withdrawals. Its public activity can be reviewed directly in the deployed app or through the linked transaction evidence in [docs/demo-readiness.md](docs/demo-readiness.md).
+The contract, confidential local integration, frontend, responsive browser QA, deployment safeguards, a complete three-wallet Ethereum Sepolia settlement, and a separate expired-round recovery are complete. Round #1 used six real encrypted obligation submissions, passed Nox safety validation, finalized conserved public net positions, and completed all three one-time withdrawals. Round #2 proved that an expired funded round returns exact collateral to every participant without opening confidential handles. Their public activity can be reviewed directly in the deployed app or through the linked transaction evidence in [docs/demo-readiness.md](docs/demo-readiness.md).
 
 This is hackathon software for testnet use, not audited production custody code.

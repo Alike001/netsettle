@@ -20,7 +20,7 @@ This file tracks evidence. An unchecked item must not be described as complete.
 - [x] Reload and retry during an asynchronous state (Round #1 was reloaded during Computing; the safety-proof retry then reached Ready to settle)
 - [x] Wrong-network recovery (real wallet switched away from Sepolia; NetSettle blocked actions and then switched MetaMask back to Ethereum Sepolia without sending a transaction)
 - [x] Rejected non-participant action (a fourth Ethereum Sepolia wallet opened Round #1 and received “Round is view-only / No action available”; no transaction could be requested)
-- [ ] Expired or invalid round refund evidence
+- [x] Expired-round refund evidence: [Round #2 expired](https://sepolia.etherscan.io/tx/0xde6dd4b01a5439aa3f37cebda58ae0ca52ecae6c83eb9473c6097609042893bb), then [refund C](https://sepolia.etherscan.io/tx/0x68941d3d5210aef655efe2ecb56a608e4932d4f95fd6be164f4fcd9d3e99548c), [refund A](https://sepolia.etherscan.io/tx/0xc009ff1e56e04fab55b25848c29c886d60fa9bbd19563f044016e22f24385351), and [refund B](https://sepolia.etherscan.io/tx/0x884e6583eaea18b8e58acc7f54b6ddf2262239ee9b833af54bc79082906b6e19)
 - [x] Hosted frontend URL tested in a fresh browser: https://netsettle-alike001s-projects.vercel.app
 - [x] Final desktop and mobile screenshots from the hosted Sepolia app (empty-round, unauthenticated Vercel renders verified on 2026-07-31)
 - [ ] Four-minute-or-shorter recorded demo
