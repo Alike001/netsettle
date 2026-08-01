@@ -245,4 +245,63 @@ describe('NetSettle deterministic state machine', () => {
     assert.equal(secondRound.fundedMask, 0);
     assert.equal(await fixture.settlement.read.roundCount(), 2n);
   });
+
+  it('keeps overlapping collateral isolated while each expired round refunds', async () => {
+    const fixture = await connection.networkHelpers.loadFixture(deployFixture);
+    const first = await createRound(fixture);
+    const addresses = fixture.participants.map((wallet) => wallet.account.address) as [
+      `0x${string}`,
+      `0x${string}`,
+      `0x${string}`,
+    ];
+    const secondDeadline = first.deadline + 60n;
+    await waitFor(
+      fixture.publicClient,
+      fixture.settlement.write.createRound([addresses, COLLATERAL, secondDeadline]),
+    );
+    const settlements = await participantContracts(fixture);
+
+    for (const settlement of settlements) {
+      await waitFor(fixture.publicClient, settlement.write.fundRound([first.roundId]));
+    }
+    for (const participant of fixture.participants) {
+      const token = await fixture.viem.getContractAt('MockToken', fixture.token.address, {
+        client: { wallet: participant },
+      });
+      await waitFor(
+        fixture.publicClient,
+        token.write.approve([fixture.settlement.address, COLLATERAL]),
+      );
+    }
+    for (const settlement of settlements) {
+      await waitFor(fixture.publicClient, settlement.write.fundRound([2n]));
+    }
+    assert.equal(await fixture.token.read.balanceOf([fixture.settlement.address]), COLLATERAL * 6n);
+
+    await connection.networkHelpers.time.increaseTo(first.deadline);
+    await waitFor(fixture.publicClient, fixture.settlement.write.expireRound([first.roundId]));
+    for (const settlement of settlements) {
+      await waitFor(fixture.publicClient, settlement.write.claimRefund([first.roundId]));
+    }
+    assert.equal(await fixture.token.read.balanceOf([fixture.settlement.address]), COLLATERAL * 3n);
+    for (const participant of fixture.participants) {
+      assert.equal(
+        await fixture.token.read.balanceOf([participant.account.address]),
+        STARTING_BALANCE - COLLATERAL,
+      );
+    }
+
+    await connection.networkHelpers.time.increaseTo(secondDeadline);
+    await waitFor(fixture.publicClient, fixture.settlement.write.expireRound([2n]));
+    for (const settlement of settlements) {
+      await waitFor(fixture.publicClient, settlement.write.claimRefund([2n]));
+    }
+    assert.equal(await fixture.token.read.balanceOf([fixture.settlement.address]), 0n);
+    for (const participant of fixture.participants) {
+      assert.equal(
+        await fixture.token.read.balanceOf([participant.account.address]),
+        STARTING_BALANCE,
+      );
+    }
+  });
 });

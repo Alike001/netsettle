@@ -175,6 +175,47 @@ describe('NetSettle Nox end-to-end', () => {
   );
 
   it(
+    'expires after safety validation if public net-position proofs do not arrive',
+    { timeout: 300_000 },
+    async () => {
+      const context = await openFundedRound(connection, noxRuntime as NoxRuntime);
+      await submitMatrix(context, [
+        [1n, 0n],
+        [0n, 1n],
+        [0n, 0n],
+      ]);
+
+      let snapshot = await readRound(context);
+      const sumChecks = await decryptBooleans(noxRuntime.publicDecrypt, snapshot.sumValidHandles);
+      const capChecks = await decryptBooleans(noxRuntime.publicDecrypt, snapshot.withinCapHandles);
+      await waitFor(
+        context.publicClient,
+        context.settlement.write.validateRound([
+          context.roundId,
+          sumChecks.proofs,
+          capChecks.proofs,
+        ]),
+      );
+      snapshot = await readRound(context);
+      assert.equal(snapshot.status, 4);
+
+      await connection.networkHelpers.time.increaseTo(snapshot.computeDeadline);
+      await waitFor(context.publicClient, context.settlement.write.expireRound([context.roundId]));
+      assert.equal((await readRound(context)).status, 7);
+
+      for (const contract of context.participantSettlements) {
+        await waitFor(context.publicClient, contract.write.claimRefund([context.roundId]));
+      }
+      for (const participant of context.participants) {
+        assert.equal(
+          await context.token.read.balanceOf([participant.account.address]),
+          STARTING_BALANCE,
+        );
+      }
+    },
+  );
+
+  it(
     'fails an over-collateral round without revealing net positions and refunds everyone',
     { timeout: 300_000 },
     async () => {

@@ -121,6 +121,19 @@ describe('round view model', () => {
         2_000n,
       ),
     ).toBe('expire');
+    expect(
+      actionFor(
+        snapshot({
+          status: RoundStatus.ReadyToFinalize,
+          computeDeadline: 2_000n,
+          fundedMask: 7,
+          submittedMask: 7,
+        }),
+        0,
+        0n,
+        2_000n,
+      ),
+    ).toBe('expire');
   });
 
   it('offers refunds only to funded participants who have not claimed', () => {
