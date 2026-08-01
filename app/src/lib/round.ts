@@ -137,6 +137,20 @@ export function actionFor(
   return 'wait';
 }
 
+/**
+ * Keep active participants focused on their current round, while allowing an
+ * observer to start an independent group and reopening creation after a round
+ * reaches a terminal state.
+ */
+export function canOfferNewRound(snapshot: RoundSnapshot, connectedParticipantIndex: number) {
+  const status = snapshot.status as RoundStatus;
+  const terminal =
+    status === RoundStatus.Finalized ||
+    status === RoundStatus.Failed ||
+    status === RoundStatus.Expired;
+  return connectedParticipantIndex < 0 || terminal;
+}
+
 export function lifecycleFor(snapshot: RoundSnapshot): LifecycleItem[] {
   const status = snapshot.status as RoundStatus;
   const failed = status === RoundStatus.Failed || status === RoundStatus.Expired;

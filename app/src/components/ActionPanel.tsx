@@ -6,6 +6,7 @@ import { formatTokenAmount, shortAddress } from '../lib/format';
 import {
   RoundStatus,
   actionFor,
+  canOfferNewRound,
   hasMaskBit,
   parseObligations,
   withdrawalEntitlement,
@@ -22,7 +23,7 @@ type ActionPanelProps = {
   connectedParticipantIndex: number;
   decimals: number;
   error: string | undefined;
-  onCreateNextRound?: () => void;
+  onStartNewRound?: () => void;
   pending: { label: string; hash?: Hash } | undefined;
   round: RoundSnapshot;
   symbol: string;
@@ -252,30 +253,38 @@ function WaitingPanel(props: ActionPanelProps) {
   const funded = participant && hasMaskBit(props.round.fundedMask, index);
   const submitted = participant && hasMaskBit(props.round.submittedMask, index);
   const claimed = participant && hasMaskBit(props.round.claimedMask, index);
-  const canCreateNextRound =
-    participant &&
-    status === RoundStatus.Finalized &&
-    props.round.claimedMask === 7 &&
-    Boolean(props.onCreateNextRound);
-  const title = !participant
-    ? 'Round is view-only'
-    : status === RoundStatus.Funding && funded
-      ? 'Collateral funded'
-      : status === RoundStatus.Submitting && submitted
-        ? 'Obligations sealed'
-        : canCreateNextRound
-          ? 'Round complete'
+  const canStartNewRound = Boolean(props.onStartNewRound) && canOfferNewRound(props.round, index);
+  const terminal =
+    status === RoundStatus.Finalized ||
+    status === RoundStatus.Failed ||
+    status === RoundStatus.Expired;
+  const title = canStartNewRound
+    ? !participant
+      ? terminal
+        ? 'Round is closed'
+        : 'Start a separate round'
+      : 'Round complete'
+    : !participant
+      ? 'Round is view-only'
+      : status === RoundStatus.Funding && funded
+        ? 'Collateral funded'
+        : status === RoundStatus.Submitting && submitted
+          ? 'Obligations sealed'
           : claimed
             ? 'Claim complete'
             : 'Waiting for the group';
-  const description = !participant
-    ? 'This wallet is not one of the three public participants. You can inspect every proof and public result without acting.'
-    : status === RoundStatus.Funding
-      ? 'Your deposit is confirmed. The submission stage opens only after all three equal deposits arrive.'
-      : status === RoundStatus.Submitting
-        ? 'Your encrypted vector is confirmed. Plaintext is not stored in this interface and will not reappear after reload.'
-        : canCreateNextRound
-          ? 'All three participants have withdrawn. Start another fixed three-party clearing round when you are ready.'
+  const description = canStartNewRound
+    ? !participant
+      ? terminal
+        ? 'This round is closed. You can inspect its proof or start a new fixed three-party clearing group.'
+        : 'This wallet is not a participant in the active round. You can inspect it or start a separate fixed three-party clearing group.'
+      : 'Your available withdrawal or refund is complete. Start another fixed three-party clearing group when you are ready.'
+    : !participant
+      ? 'This wallet is not one of the three public participants. You can inspect every proof and public result without acting.'
+      : status === RoundStatus.Funding
+        ? 'Your deposit is confirmed. The submission stage opens only after all three equal deposits arrive.'
+        : status === RoundStatus.Submitting
+          ? 'Your encrypted vector is confirmed. Plaintext is not stored in this interface and will not reappear after reload.'
           : claimed
             ? 'This wallet has already claimed its one available withdrawal or refund.'
             : 'No transaction is required from this wallet at the current stage.';
@@ -290,10 +299,10 @@ function WaitingPanel(props: ActionPanelProps) {
           {claimed || funded || submitted ? 'Confirmed onchain' : 'No action available'}
         </strong>
       </div>
-      {canCreateNextRound && (
-        <button className="primary-button" onClick={props.onCreateNextRound} type="button">
+      {canStartNewRound && (
+        <button className="primary-button" onClick={props.onStartNewRound} type="button">
           <Icon name="settle" />
-          Create next round
+          {participant ? 'Start new round' : 'Start separate round'}
         </button>
       )}
     </PanelFrame>

@@ -13,7 +13,7 @@ import { errorMessage } from './lib/format';
 import { lifecycleFor, participantIndex, type RoundStatus } from './lib/round';
 
 export default function App() {
-  const [creatingNextRound, setCreatingNextRound] = useState(false);
+  const [creatingNewRound, setCreatingNewRound] = useState(false);
   const connection = useConnection();
   const data = useRoundData();
   const actionState = useRoundActions({
@@ -43,14 +43,14 @@ export default function App() {
           <LoadingState />
         ) : data.error ? (
           <ErrorState error={data.error} onRetry={() => void data.refetch()} />
-        ) : creatingNextRound || !data.roundId || data.roundCount === 0n ? (
+        ) : creatingNewRound || !data.roundId || data.roundCount === 0n ? (
           <div className="workspace-grid">
-            {creatingNextRound ? <NextRound /> : <EmptyRound />}
+            {creatingNewRound ? <NewRound /> : <EmptyRound />}
             <CreateRoundPanel
               actions={actionState.actions}
               decimals={data.decimals}
               error={actionState.error}
-              onCreated={() => setCreatingNextRound(false)}
+              onCreated={() => setCreatingNewRound(false)}
               pending={actionState.pending}
               symbol={data.symbol}
             />
@@ -83,7 +83,7 @@ export default function App() {
                 decimals={data.decimals}
                 error={actionState.error}
                 pending={actionState.pending}
-                onCreateNextRound={() => setCreatingNextRound(true)}
+                onStartNewRound={() => setCreatingNewRound(true)}
                 round={data.round}
                 symbol={data.symbol}
               />
@@ -201,7 +201,7 @@ function EmptyRound() {
   );
 }
 
-function NextRound() {
+function NewRound() {
   return (
     <section className="clearing-card empty-round">
       <div className="empty-mark" aria-hidden="true">
@@ -210,11 +210,11 @@ function NextRound() {
         <span className="empty-node empty-node-c">C</span>
         <span className="empty-core">Nox</span>
       </div>
-      <p className="eyebrow">Previous round complete</p>
-      <h1>Open the next confidential clearing round.</h1>
+      <p className="eyebrow">New clearing round</p>
+      <h1>Start a confidential clearing round.</h1>
       <p>
-        Choose three public participants, equal test-USDC collateral, and a submission deadline. The
-        new onchain round becomes the current workspace after confirmation.
+        Choose three public participants, equal test-USDC collateral, and a submission deadline.
+        This independent onchain round becomes the current workspace after confirmation.
       </p>
     </section>
   );

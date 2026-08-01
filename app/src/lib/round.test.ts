@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   RoundStatus,
   actionFor,
+  canOfferNewRound,
   hasMaskBit,
   lifecycleFor,
   parseObligations,
@@ -131,6 +132,22 @@ describe('round view model', () => {
     expect(actionFor(failed, 0, 0n, 500n)).toBe('wait');
     expect(actionFor(failed, 1, 0n, 500n)).toBe('wait');
     expect(actionFor(failed, 2, 0n, 500n)).toBe('refund');
+  });
+
+  it('keeps active participants focused but never traps observers or closed rounds', () => {
+    const active = snapshot({ status: RoundStatus.Funding });
+    expect(canOfferNewRound(active, 0)).toBe(false);
+    expect(canOfferNewRound(active, -1)).toBe(true);
+
+    expect(canOfferNewRound(snapshot({ status: RoundStatus.Finalized, claimedMask: 7 }), 0)).toBe(
+      true,
+    );
+    expect(canOfferNewRound(snapshot({ status: RoundStatus.Failed, claimedMask: 7 }), 0)).toBe(
+      true,
+    );
+    expect(canOfferNewRound(snapshot({ status: RoundStatus.Expired, claimedMask: 7 }), 0)).toBe(
+      true,
+    );
   });
 
   it('accepts zero obligations but rejects malformed, negative, or over-cap input', () => {
