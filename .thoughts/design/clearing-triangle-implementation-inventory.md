@@ -4,7 +4,7 @@
 
 - Desktop finalized round: `assets/design/clearing-triangle-desktop.png` (1536 × 1024).
 - Mobile submission state: `assets/design/clearing-triangle-mobile.png` (853 × 1853).
-- Binding written direction: `design.doc.md`.
+- The original visual direction is implemented in the public app components and styles; private session planning files are intentionally not part of this repository.
 
 The generated references render the already approved Direction 1. They do not expand product scope and must never be shipped as static UI.
 

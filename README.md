@@ -4,7 +4,7 @@
 
 NetSettle is a three-party clearing product built with iExec Nox on Ethereum Sepolia. Three public wallet addresses deposit equal test USDC collateral and each submit two confidential obligations. Nox computes the six values privately. The contract publishes only three final net positions, proves that total pay equals total receive, and lets each participant withdraw exactly once.
 
-**Judge start:** [open the completed, verifiable Round #1](https://netsettle-alike001s-projects.vercel.app/?round=1). It contains six real encrypted submissions, Nox proof validation, conserved net positions, and all three withdrawals. [Round #2](https://netsettle-alike001s-projects.vercel.app/?round=2) is the separate real expiry/refund proof.
+**Judge start:** [open the completed, verifiable Round #1](https://netsettle-alike001s-projects.vercel.app/?round=1). It contains six real encrypted submissions, Nox proof validation, conserved net positions, and all three withdrawals. [Round #2](https://netsettle-alike001s-projects.vercel.app/?round=2) is the separate real expiry/refund proof. A connected Sepolia wallet can start its own independent three-party round from an active observer view or any closed round.
 
 ## What is private
 
@@ -66,6 +66,8 @@ XDG_CACHE_HOME="$PWD/.cache" npm run test:nox
 
 These tests use real encrypted handles and proof flows against the local Nox stack. The deterministic unit suite covers authorization, duplicate actions, deadlines, cap boundaries, conservation, withdrawals, refunds, and frontend state/input rules.
 
+At the current release, the suite includes 9 deterministic contract/config tests, a Nox-runner guard, 17 frontend behavior/UI tests, and 4 Docker-backed Nox integration tests. The live contract and frontend are separately evidenced by the linked Sepolia rounds above.
+
 ## Deploy safely to Sepolia
 
 Never put a private key in this repository, a `.env` file, a command, or chat. Hardhat stores it in an encrypted keystore outside the project and prompts for it interactively.
@@ -110,7 +112,7 @@ any wallet secret in Vercel.
 - `contracts/ignition/` — pinned Sepolia deployment
 - `app/src/` — contract-backed React interface
 - `research/domain-knowledge.md` — judging criteria and protocol research
-- `design.doc.md` — accepted UX direction and privacy language
+- `docs/demo-readiness.md` — live evidence and offline-presentation checklist
 - `feedback.md` — evidence-based iExec Nox tool feedback
 
 ## Current status
