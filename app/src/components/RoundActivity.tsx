@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Hash } from 'viem';
 import { appConfig } from '../config';
-import { shortAddress } from '../lib/format';
+import { errorMessage, shortAddress } from '../lib/format';
 import { Icon } from './Icon';
 
 type ActivityLog = {
@@ -22,10 +22,14 @@ const eventLabels: Record<string, string> = {
 
 export function RoundActivity({
   configured,
+  error,
   events,
+  onRetry,
 }: {
   configured: boolean;
+  error?: unknown;
   events: readonly ActivityLog[];
+  onRetry?: () => void;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -54,6 +58,15 @@ export function RoundActivity({
               Configure <code>VITE_DEPLOYMENT_BLOCK</code> at deployment so the app can retrieve
               complete Sepolia history without guessing a scan range.
             </p>
+          ) : error ? (
+            <div className="activity-error" role="alert">
+              <p>Activity could not be verified from Sepolia. {errorMessage(error)}</p>
+              {onRetry && (
+                <button className="activity-retry" onClick={onRetry} type="button">
+                  Retry activity read
+                </button>
+              )}
+            </div>
           ) : events.length === 0 ? (
             <p className="empty-copy">No events have been emitted for this round yet.</p>
           ) : (

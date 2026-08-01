@@ -12,8 +12,9 @@
     "deploy:sepolia": "hardhat ignition deploy --network sepolia --deployment-id netsettle-sepolia ignition/modules/NetSettle.ts",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "hardhat test test/unit/*.test.ts",
-    "test:nox": "hardhat test test/integration/*.test.ts"
+    "test": "hardhat test test/unit/*.test.ts && node --test scripts/nox-test-guard.test.mjs",
+    "test:nox": "node scripts/nox-test-guard.mjs",
+    "test:nox:hardhat": "hardhat test test/integration/*.test.ts"
   },
   "dependencies": {
     "@iexec-nox/nox-protocol-contracts": "0.2.4",

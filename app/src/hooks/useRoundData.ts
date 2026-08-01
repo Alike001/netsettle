@@ -113,6 +113,7 @@ export function useRoundData() {
   return {
     activity,
     activityConfigured: appConfig.deploymentBlock !== undefined,
+    activityError: activityQuery.error,
     allowance: allowanceQuery.data ?? 0n,
     contractAddress,
     decimals: decimalsQuery.data ?? 18,

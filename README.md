@@ -4,6 +4,8 @@
 
 NetSettle is a three-party clearing product built with iExec Nox on Ethereum Sepolia. Three public wallet addresses deposit equal test USDC collateral and each submit two confidential obligations. Nox computes the six values privately. The contract publishes only three final net positions, proves that total pay equals total receive, and lets each participant withdraw exactly once.
 
+**Judge start:** [open the completed, verifiable Round #1](https://netsettle-alike001s-projects.vercel.app/?round=1). It contains six real encrypted submissions, Nox proof validation, conserved net positions, and all three withdrawals. [Round #2](https://netsettle-alike001s-projects.vercel.app/?round=2) is the separate real expiry/refund proof.
+
 ## What is private
 
 - Private: the six bilateral obligation amounts.
@@ -22,7 +24,7 @@ The current Handle SDK sends an entered amount over TLS to the trusted Nox gatew
 | Deployment transaction  | [0x5b46…10ee](https://sepolia.etherscan.io/tx/0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee) |
 | Deployment block        | `11388543`                                                                                                        |
 | Compute recovery window | 1 hour                                                                                                            |
-| Hosted frontend         | [netsettle-alike001s-projects.vercel.app](https://netsettle-alike001s-projects.vercel.app)                        |
+| Hosted frontend         | [completed Round #1](https://netsettle-alike001s-projects.vercel.app/?round=1)                                    |
 
 Circle test USDC has no financial value. The deployment was confirmed with the contract's public token and compute-timeout getters.
 

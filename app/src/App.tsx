@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useConnection } from 'wagmi';
+import { appConfig } from './config';
 import { ActionPanel, CreateRoundPanel } from './components/ActionPanel';
 import { AppHeader } from './components/AppHeader';
 import { ClearingWorkspace } from './components/ClearingWorkspace';
@@ -56,6 +57,23 @@ export default function App() {
           </div>
         ) : data.round ? (
           <>
+            {data.roundId !== appConfig.successfulRoundId &&
+              appConfig.successfulRoundId !== undefined &&
+              !new URLSearchParams(window.location.search).has('round') && (
+                <section className="evidence-notice" aria-label="Completed settlement evidence">
+                  <div>
+                    <strong>Start with the completed settlement</strong>
+                    <span>
+                      Round #{appConfig.successfulRoundId.toString()} shows six encrypted
+                      obligations becoming three verified net positions.
+                    </span>
+                  </div>
+                  <a href={`?round=${appConfig.successfulRoundId.toString()}`}>
+                    Open verified Round #{appConfig.successfulRoundId.toString()}
+                    <Icon name="external" />
+                  </a>
+                </section>
+              )}
             <div className="workspace-grid">
               <ClearingWorkspace decimals={data.decimals} round={data.round} symbol={data.symbol} />
               <ActionPanel
@@ -71,7 +89,12 @@ export default function App() {
               />
             </div>
             <LifecycleRail items={lifecycleFor(data.round)} />
-            <RoundActivity configured={data.activityConfigured} events={data.activity} />
+            <RoundActivity
+              configured={data.activityConfigured}
+              error={data.activityError}
+              events={data.activity}
+              onRetry={() => void data.refetch()}
+            />
           </>
         ) : (
           <ErrorState
@@ -190,8 +213,8 @@ function NextRound() {
       <p className="eyebrow">Previous round complete</p>
       <h1>Open the next confidential clearing round.</h1>
       <p>
-        Choose three public participants, equal test-USDC collateral, and a submission deadline.
-        The new onchain round becomes the current workspace after confirmation.
+        Choose three public participants, equal test-USDC collateral, and a submission deadline. The
+        new onchain round becomes the current workspace after confirmation.
       </p>
     </section>
   );

@@ -121,7 +121,7 @@ function ParticipantNode({
           : 'Awaiting submission'
         : status === RoundStatus.Finalized
           ? claimed
-            ? 'Withdrawal claimed'
+            ? `${position} · claimed`
             : position
           : status === RoundStatus.Failed || status === RoundStatus.Expired
             ? claimed
@@ -140,9 +140,7 @@ function ParticipantNode({
       </div>
       <strong className="mono participant-address">{shortAddress(address, 8, 6)}</strong>
       <span
-        className={`participant-state ${
-          status === RoundStatus.Finalized && !claimed ? 'is-position' : ''
-        }`}
+        className={`participant-state ${status === RoundStatus.Finalized ? 'is-position' : ''}`}
       >
         {readiness}
       </span>

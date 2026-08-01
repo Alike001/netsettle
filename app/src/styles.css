@@ -314,6 +314,61 @@ input:focus-visible {
   padding-block: 28px 44px;
 }
 
+.evidence-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border: 1px solid color-mix(in srgb, var(--mint) 32%, var(--stone));
+  border-radius: 12px;
+  background: var(--mint-pale);
+  gap: 18px;
+  padding: 13px 16px;
+}
+
+.evidence-notice div {
+  display: grid;
+  gap: 3px;
+}
+
+.evidence-notice strong {
+  color: var(--mint);
+  font-size: 0.86rem;
+}
+
+.evidence-notice span {
+  color: var(--slate);
+  font-size: 0.8rem;
+}
+
+.evidence-notice a,
+.activity-retry {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border: 1px solid color-mix(in srgb, var(--mint) 35%, var(--stone));
+  border-radius: 8px;
+  color: var(--mint);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 680;
+  gap: 6px;
+  padding: 8px 10px;
+}
+
+.evidence-notice a:hover,
+.activity-retry:hover {
+  border-color: var(--mint);
+}
+
+.evidence-notice a:focus-visible,
+.activity-retry:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--mint) 35%, transparent);
+  outline-offset: 2px;
+}
+
 .workspace-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 360px;
@@ -1417,6 +1472,11 @@ input[type='number']::-webkit-outer-spin-button {
 
   .workspace-grid {
     grid-template-columns: 1fr;
+  }
+
+  .evidence-notice {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .clearing-card {

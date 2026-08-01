@@ -2,7 +2,7 @@ import { strict as assert } from 'node:assert';
 import { before, describe, it } from 'node:test';
 import { network } from 'hardhat';
 import type { Address, Hash } from 'viem';
-import { zeroHash } from 'viem';
+import { zeroAddress, zeroHash } from 'viem';
 
 const COLLATERAL = 100n;
 const COMPUTE_TIMEOUT = 600;
@@ -100,6 +100,13 @@ describe('NetSettle deterministic state machine', () => {
         deadline,
       ]),
     );
+    await assert.rejects(
+      fixture.settlement.write.createRound([
+        [zeroAddress, addresses[1], addresses[2]],
+        COLLATERAL,
+        deadline,
+      ]),
+    );
     await assert.rejects(fixture.settlement.write.createRound([addresses, 0n, deadline]));
     await assert.rejects(fixture.settlement.write.createRound([addresses, COLLATERAL, 1n]));
   });
@@ -122,6 +129,55 @@ describe('NetSettle deterministic state machine', () => {
     assert.equal(snapshot.fundedMask, 7);
     assert.equal(snapshot.status, 2);
     assert.equal(await fixture.token.read.balanceOf([fixture.settlement.address]), COLLATERAL * 3n);
+  });
+
+  it('rejects fee-on-transfer collateral before it can fund a round', async () => {
+    const fixture = await connection.networkHelpers.loadFixture(deployFixture);
+    const feeToken = await fixture.viem.deployContract('FeeOnTransferToken');
+    const settlement = await fixture.viem.deployContract('NetSettle', [
+      feeToken.address,
+      COMPUTE_TIMEOUT,
+    ]);
+    const participant = fixture.participants[0]!;
+    const latestBlock = await fixture.publicClient.getBlock();
+    const deadline = latestBlock.timestamp + 3_600n;
+    const addresses = fixture.participants.map((wallet) => wallet.account.address) as [
+      `0x${string}`,
+      `0x${string}`,
+      `0x${string}`,
+    ];
+
+    await waitFor(
+      fixture.publicClient,
+      feeToken.write.mint([participant.account.address, STARTING_BALANCE]),
+    );
+    const participantToken = await fixture.viem.getContractAt(
+      'FeeOnTransferToken',
+      feeToken.address,
+      {
+        client: { wallet: participant },
+      },
+    );
+    const participantSettlement = await fixture.viem.getContractAt(
+      'NetSettle',
+      settlement.address,
+      {
+        client: { wallet: participant },
+      },
+    );
+    await waitFor(
+      fixture.publicClient,
+      participantToken.write.approve([settlement.address, COLLATERAL]),
+    );
+    await waitFor(
+      fixture.publicClient,
+      settlement.write.createRound([addresses, COLLATERAL, deadline]),
+    );
+
+    await assert.rejects(participantSettlement.write.fundRound([1n]));
+    assert.equal(await feeToken.read.balanceOf([settlement.address]), 0n);
+    const snapshot = (await settlement.read.getRound([1n])) as RoundSnapshot;
+    assert.equal(snapshot.fundedMask, 0);
   });
 
   it('expires an incomplete round and refunds only funded participants once', async () => {
@@ -147,7 +203,7 @@ describe('NetSettle deterministic state machine', () => {
 
   it('rejects submissions before funding and from a non-participant', async () => {
     const fixture = await connection.networkHelpers.loadFixture(deployFixture);
-    const { roundId } = await createRound(fixture);
+    const { deadline, roundId } = await createRound(fixture);
     const contracts = await participantContracts(fixture);
     const emptyInputs = [zeroHash, zeroHash] as const;
     const emptyProofs = ['0x', '0x'] as const;
@@ -162,6 +218,10 @@ describe('NetSettle deterministic state machine', () => {
       client: { wallet: fixture.stranger },
     });
     await assert.rejects(outsider.write.submitObligations([roundId, emptyInputs, emptyProofs]));
+    await connection.networkHelpers.time.increaseTo(deadline);
+    await assert.rejects(
+      contracts[0]!.write.submitObligations([roundId, emptyInputs, emptyProofs]),
+    );
   });
 
   it('keeps independent masks and deadlines across multiple rounds', async () => {

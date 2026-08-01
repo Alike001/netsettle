@@ -72,6 +72,13 @@ describe('NetSettle Nox end-to-end', () => {
       );
       await submitRow(context, 0, firstRow);
       await assert.rejects(
+        context.participantSettlements[0]!.write.submitObligations([
+          context.roundId,
+          [firstRow[0].handle, firstRow[1].handle],
+          [firstRow[0].handleProof, firstRow[1].handleProof],
+        ]),
+      );
+      await assert.rejects(
         context.handleClients[1].decrypt(firstRow[0].handle as Handle<'uint256'>),
       );
 
@@ -135,6 +142,35 @@ describe('NetSettle Nox end-to-end', () => {
       }
       assert.equal(await context.token.read.balanceOf([context.settlement.address]), 0n);
       await assert.rejects(context.participantSettlements[0]!.write.withdraw([context.roundId]));
+    },
+  );
+
+  it(
+    'expires an unresolved confidential computation and refunds all funded participants',
+    { timeout: 300_000 },
+    async () => {
+      const context = await openFundedRound(connection, noxRuntime as NoxRuntime);
+      await submitMatrix(context, [
+        [1n, 0n],
+        [0n, 1n],
+        [0n, 0n],
+      ]);
+
+      const computing = await readRound(context);
+      assert.equal(computing.status, 3);
+      await connection.networkHelpers.time.increaseTo(computing.computeDeadline);
+      await waitFor(context.publicClient, context.settlement.write.expireRound([context.roundId]));
+      assert.equal((await readRound(context)).status, 7);
+
+      for (const contract of context.participantSettlements) {
+        await waitFor(context.publicClient, contract.write.claimRefund([context.roundId]));
+      }
+      for (const participant of context.participants) {
+        assert.equal(
+          await context.token.read.balanceOf([participant.account.address]),
+          STARTING_BALANCE,
+        );
+      }
     },
   );
 

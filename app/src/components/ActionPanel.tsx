@@ -266,8 +266,8 @@ function WaitingPanel(props: ActionPanelProps) {
         : canCreateNextRound
           ? 'Round complete'
           : claimed
-          ? 'Claim complete'
-          : 'Waiting for the group';
+            ? 'Claim complete'
+            : 'Waiting for the group';
   const description = !participant
     ? 'This wallet is not one of the three public participants. You can inspect every proof and public result without acting.'
     : status === RoundStatus.Funding
@@ -277,8 +277,8 @@ function WaitingPanel(props: ActionPanelProps) {
         : canCreateNextRound
           ? 'All three participants have withdrawn. Start another fixed three-party clearing round when you are ready.'
           : claimed
-          ? 'This wallet has already claimed its one available withdrawal or refund.'
-          : 'No transaction is required from this wallet at the current stage.';
+            ? 'This wallet has already claimed its one available withdrawal or refund.'
+            : 'No transaction is required from this wallet at the current stage.';
 
   return (
     <PanelFrame description={description} eyebrow="Current state" title={title}>
