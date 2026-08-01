@@ -66,7 +66,7 @@ XDG_CACHE_HOME="$PWD/.cache" npm run test:nox
 
 These tests use real encrypted handles and proof flows against the local Nox stack. The deterministic unit suite covers authorization, duplicate actions, deadlines, cap boundaries, conservation, withdrawals, refunds, and frontend state/input rules.
 
-At the current release, the suite includes 9 deterministic contract/config tests, a Nox-runner guard, 17 frontend behavior/UI tests, and 4 Docker-backed Nox integration tests. The live contract and frontend are separately evidenced by the linked Sepolia rounds above.
+At the current release, the suite includes 10 deterministic contract/config tests, a Nox-runner guard, 20 frontend behavior/UI tests, and 5 Docker-backed Nox integration tests. The live contract and frontend are separately evidenced by the linked Sepolia rounds above.
 
 ## Deploy safely to Sepolia
 
