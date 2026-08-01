@@ -15,16 +15,17 @@ The current Handle SDK sends an entered amount over TLS to the trusted Nox gatew
 
 ## Deployment
 
-| Item                    | Value                                                                                                             |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Network                 | Ethereum Sepolia (`11155111`)                                                                                     |
-| Settlement token        | Circle test USDC (`0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`)                                                   |
-| NoxCompute              | `0x24Ef36Ec5b626D7DCD09a98F3083c2758F0F77bF`                                                                      |
-| NetSettle               | [0x9f10…D8EA](https://sepolia.etherscan.io/address/0x9f10b266F90638fC058e0891901082Fe9eccD8EA)                    |
-| Deployment transaction  | [0x5b46…10ee](https://sepolia.etherscan.io/tx/0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee) |
-| Deployment block        | `11388543`                                                                                                        |
-| Compute recovery window | 1 hour                                                                                                            |
-| Hosted frontend         | [completed Round #1](https://netsettle-alike001s-projects.vercel.app/?round=1)                                    |
+| Item                    | Value                                                                                                                                                                                                                                                                                                            |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Network                 | Ethereum Sepolia (`11155111`)                                                                                                                                                                                                                                                                                    |
+| Settlement token        | Circle test USDC (`0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`)                                                                                                                                                                                                                                                  |
+| NoxCompute              | `0x24Ef36Ec5b626D7DCD09a98F3083c2758F0F77bF`                                                                                                                                                                                                                                                                     |
+| NetSettle               | [0x9f10…D8EA](https://sepolia.etherscan.io/address/0x9f10b266F90638fC058e0891901082Fe9eccD8EA)                                                                                                                                                                                                                   |
+| Verified source         | [Etherscan](https://sepolia.etherscan.io/address/0x9f10b266F90638fC058e0891901082Fe9eccD8EA#code), [Blockscout](https://eth-sepolia.blockscout.com/address/0x9f10b266F90638fC058e0891901082Fe9eccD8EA#code), [Sourcify](https://sourcify.dev/server/repo-ui/11155111/0x9f10b266F90638fC058e0891901082Fe9eccD8EA) |
+| Deployment transaction  | [0x5b46…10ee](https://sepolia.etherscan.io/tx/0x5b469443b39dd92c8085128bccdd63de08f077c75c42eeffc3c25e3f55c810ee)                                                                                                                                                                                                |
+| Deployment block        | `11388543`                                                                                                                                                                                                                                                                                                       |
+| Compute recovery window | 1 hour                                                                                                                                                                                                                                                                                                           |
+| Hosted frontend         | [completed Round #1](https://netsettle-alike001s-projects.vercel.app/?round=1)                                                                                                                                                                                                                                   |
 
 Circle test USDC has no financial value. The deployment was confirmed with the contract's public token and compute-timeout getters.
 

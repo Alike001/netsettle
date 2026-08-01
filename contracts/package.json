@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "test": "hardhat test test/unit/*.test.ts && node --test scripts/nox-test-guard.test.mjs",
     "test:nox": "node scripts/nox-test-guard.mjs",
-    "test:nox:hardhat": "hardhat test test/integration/*.test.ts"
+    "test:nox:hardhat": "hardhat test test/integration/*.test.ts",
+    "verify:sepolia": "hardhat verify --network sepolia 0x9f10b266F90638fC058e0891901082Fe9eccD8EA 0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238 3600"
   },
   "dependencies": {
     "@iexec-nox/nox-protocol-contracts": "0.2.4",
@@ -25,6 +26,7 @@
     "@iexec-nox/handle": "0.1.0-beta.13",
     "@iexec-nox/nox-hardhat-plugin": "0.2.0",
     "@nomicfoundation/hardhat-toolbox-viem": "5.0.7",
+    "@nomicfoundation/hardhat-verify": "3.0.22",
     "@tsconfig/node22": "22.0.2",
     "@types/node": "22.15.3",
     "hardhat": "3.12.0",
